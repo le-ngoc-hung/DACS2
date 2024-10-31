@@ -1,0 +1,43 @@
+.avt{
+    border-radius: 50%; 
+    object-fit: cover; 
+}
+h6{
+    margin-top: 5px;
+}
+.btn-success{
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.line{
+    height: 35px;
+    border-left: 2px solid #ccc;
+    margin: 0 20px;
+}
+.badge{
+    height: 25px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+.des{
+    font-size: 17px;
+}
+.text-success{
+    margin-top: -3px;
+}
+.detail{
+    border: 1px solid gray;
+    padding: 30px; 
+    border-radius: 10px 10px 10px 10px ;
+}
+#buy{
+    margin-top: 3px;
+}
+#tag{
+    margin-top: 4px;
+}

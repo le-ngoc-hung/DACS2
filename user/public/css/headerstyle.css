@@ -1,0 +1,43 @@
+body{
+    background-color: yellow;
+}
+.container{
+    margin-top: 20px;
+}
+#search{
+    border-radius: 0px 4px 4px 0;
+    border: none;
+    border-left: 1px solid gray;
+    background-color: white;
+    height: 35px;
+    width: 40px;
+    font-size: 20px;
+}
+#text{
+    border-radius: 4px 0px 0px 4px;
+    border: none;
+    height: 35px;
+    width: 250px;
+}
+.line{
+    height: 35px;
+    border-left: 2px solid #ccc;
+    margin: 0 20px;
+}
+.log{
+    display: flex;
+}
+a{
+    text-decoration: none;
+    color: black;
+    margin-top: 5px;
+}
+.dropdown-toggle{
+    border: none;
+    background-color: rgb(254, 254, 166);
+    margin-top: 5px;
+}
+.dropdown-menu{
+    background-color: rgb(250, 250, 185);
+}
+

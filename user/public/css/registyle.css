@@ -1,0 +1,62 @@
+input:not([type="radio"]){
+    border: 1px solid gray;
+    border-right: none;
+    border-radius: 4px 4px;
+    height: 50px;
+    width: 270px;
+    padding: 10px;
+}
+i{
+    font-size: 20px;
+}
+.icon{
+    padding-top: 10px;
+    height: 50px;
+    border: 1px solid gray;
+    border-left: none;
+}
+.logo{
+    height: auto;
+    width: 120px;
+    margin-bottom: 10px;
+}
+.wel{
+    display: inline-block;
+    margin-top: 15px;
+}
+b{
+    font-size: 25px;
+    margin-right: -20px;
+}
+body{
+    background-image: url("../img/back.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+form{
+    background-color: white;
+    border: 1px solid gray;
+}
+.bor{
+    border: 1px solid gray;
+    text-align: left;
+    padding-left: 5px;
+    padding-top: 5px;
+    height: 80px;
+    width: 135px;
+    cursor: pointer;
+}
+button{
+    border: none;
+    border-radius: 4px 4px 4px 4px;
+    height: 50px;
+    width: 300px;
+    padding: 10px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: blue;
+}

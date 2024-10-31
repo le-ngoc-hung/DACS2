@@ -1,0 +1,27 @@
+.intro{
+    border: 1px solid gray;
+    border-right: none;
+    background-color: white;
+}
+.chao{
+    padding-left: 10px;
+}
+b{
+    color: green;
+}
+.introimg{
+    margin-left: -12px;
+}
+.container{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+body{
+    background-color: rgb(245, 245, 245);
+}
+i{
+    font-size: 40px;
+}
+
+
+
