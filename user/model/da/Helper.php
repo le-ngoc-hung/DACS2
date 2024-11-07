@@ -3,7 +3,7 @@ class Helper
 {
     public static function get_url($url = '')
     {
-        $uri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+        $uri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_SPECIAL_CHARS);
         $app_path = explode('/', $uri);
         return 'http://' . $_SERVER['HTTP_HOST'] . '/' . $app_path[1] . '/' . $url;
     }
@@ -21,7 +21,7 @@ class Helper
 		}
     }
 
-    public static function input_value($inputname, $filter = FILTER_DEFAULT, $option = FILTER_SANITIZE_STRING)
+    public static function input_value($inputname, $filter = FILTER_DEFAULT, $option = FILTER_SANITIZE_SPECIAL_CHARS)
     {
         $value = filter_input(INPUT_POST, $inputname, $filter, $option);
         if ($value === null) {

@@ -1,6 +1,6 @@
 <?php
 class Freelancer{
-    private $freeId, $userId, $name, $back, $skill, $exp, $img;
+    private $freeId, $userId, $name, $back, $skill, $exp, $img, $address, $facebook;
 
     function __construct(){
 
@@ -27,6 +27,12 @@ class Freelancer{
     function getImg(){
         return $this->img;
     }
+    function getAddress(){
+        return $this->address;
+    }
+    function getFacebook(){
+        return $this->facebook;
+    }
 
     function setUserId($userId){
         $this->userId=$userId;
@@ -48,6 +54,12 @@ class Freelancer{
     }
     function setImg($img){
         $this->img=$img;
+    }
+    function setAddress($address){
+        $this->address=$address;
+    }
+    function setFacebook($facebook){
+        $this->facebook=$facebook;
     }
 }
 ?>

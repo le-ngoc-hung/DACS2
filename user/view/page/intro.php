@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-4">
-                <img src="./public/img/anhgioithieu.jpg" alt="" height="520px" width="330px" class="introimg">
+                <img src="<?php echo Helper::get_url('user/public/img/') . "anhgioithieu.jpg" ?>" alt="" height="520px" width="330px" class="introimg">
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
                             ?>
                                 <div class="col-3">
                                     <div class="card">
-                                        <img src="<?php echo "./public/img/" . $fr->getImg() ?>" class="card-img-top" alt="...">
+                                        <img src="<?php echo Helper::get_url('user/public/img/')  . $fr->getImg() ?>" class="card-img-top" alt="...">
                                         <div class="card-body text-center">
                                             <h6 class="card-title"><?php echo $fr->getName() ?></h6>
                                             <p class="card-text"><?php echo $fr->getSkill() ?></p>

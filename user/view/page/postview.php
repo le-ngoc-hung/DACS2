@@ -84,7 +84,7 @@
                         ?>
                         <div class="col-3 py-2">
                             <div class="card">
-                                <a href="">
+                                <a href="<?php echo Helper::get_url('user/index.php/?lay=postdetail&id=') . $post->getPostId() ?>">
                                     <div class="image-container d-flex justify-content-center align-items-center">
                                         <div class="color-block"></div>
                                         <img src="<?php echo Helper::get_url('user/public/img/') . $post->getImg() ?>" class="card-img-top" height="250px" alt="Dịch thuật mọi văn bản">

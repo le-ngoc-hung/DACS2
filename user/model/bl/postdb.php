@@ -58,6 +58,16 @@ class PostDatabase extends Database{
         return $total;
     }
 
+    function countRowById($id){
+        $id = (int)$id;
+        $sql = "SELECT COUNT(*) as total FROM bai_dang_ca_nhan WHERE ma_nguoi_tim_viec = $id";
+        $result = self::db_get_list($sql);
+        if ($result){
+            $total = $result[0]['total'];
+        }
+        return $total;
+    }
+
     function getById($id){
         $sql = "SELECT * FROM bai_dang_ca_nhan WHERE ma_bai_dang = :id";
         $params = [
@@ -181,5 +191,58 @@ class PostDatabase extends Database{
         }
         return $Posts;
     }
+
+    function getByFreeId($id) {
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE ma_nguoi_tim_viec = :id";
+        $params = [
+            "id" => (int)$id,
+        ];
+        $result = self::db_get_list_condition($sql, $params);
+        $posts = []; 
+    
+        if ($result) { 
+            foreach ($result as $row) {
+                $Post = new Post();
+                $Post->setPostId($row['ma_bai_dang']);
+                $Post->setFreeId($row['ma_nguoi_tim_viec']);
+                $Post->setTitle($row['tieu_de']);
+                $Post->setContent($row['noi_dung']);
+                $Post->setCreateDate($row['ngay_tao']);
+                $Post->setPrice($row['gia']);
+                $Post->setImg($row['hinh_anh']);
+                $Post->setSpeId($row['ma_chuyen_nganh']);
+                $posts[] = $Post;
+            }
+        }
+        return $posts;
+    }
+
+    function getByFreeIdLimit($id,$limit,$offset) {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE ma_nguoi_tim_viec = :id LIMIT $limit OFFSET $offset";
+        $params = [
+            "id" => (int)$id,
+        ];
+        $result = self::db_get_list_condition($sql, $params);
+        $posts = []; 
+    
+        if ($result) { 
+            foreach ($result as $row) {
+                $Post = new Post();
+                $Post->setPostId($row['ma_bai_dang']);
+                $Post->setFreeId($row['ma_nguoi_tim_viec']);
+                $Post->setTitle($row['tieu_de']);
+                $Post->setContent($row['noi_dung']);
+                $Post->setCreateDate($row['ngay_tao']);
+                $Post->setPrice($row['gia']);
+                $Post->setImg($row['hinh_anh']);
+                $Post->setSpeId($row['ma_chuyen_nganh']);
+                $posts[] = $Post;
+            }
+        }
+        return $posts;
+    }
+    
 }
 ?>

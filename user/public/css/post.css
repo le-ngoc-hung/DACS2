@@ -45,25 +45,26 @@ hr{
 
 h6{
     margin-top: 5px;
-}.image-container {
-    position: relative; /* Để sử dụng position cho các phần tử con */
-    overflow: hidden; /* Ẩn phần bị tràn ra ngoài */
-    height: 283px; /* Chiều cao của vùng chứa ảnh */
-    background-color: #f0f0f0; /* Màu nền cho vùng chứa ảnh */
+}
+.image-container {
+    position: relative; 
+    overflow: hidden; 
+    height: 283px; 
+    background-color: #f0f0f0; 
 }
 
 .image-container img {
-    max-width: 100%; /* Giới hạn chiều rộng ảnh */
-    height: auto; /* Giữ tỷ lệ cho chiều cao */
-    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    max-width: 100%; 
+    height: auto; 
+    object-fit: cover; 
 }
 
 .color-block {
-    position: absolute; /* Đặt khối màu ở vị trí tuyệt đối */
-    top: 0; /* Bắt đầu từ trên cùng */
-    left: 0; /* Bắt đầu từ bên trái */
-    right: 0; /* Kéo dài đến bên phải */
-    bottom: 0; /* Kéo dài đến đáy */
-    background-color: rgba(255, 0, 0, 0.5); /* Màu sắc và độ trong suốt */
-    z-index: -1; /* Đưa khối màu xuống dưới ảnh */
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 0, 0, 0.5); 
+    z-index: -1;
 }

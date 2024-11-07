@@ -24,7 +24,7 @@
                         $spedb = new Specializeddb();
                         if (!empty($id)){
                             $post = $postdb->getById($id);
-
+                            
                             $freelancer = $freedb->getById($post->getFreeId());
 
                             $spe = $spedb->getById($post->getSpeId());
@@ -42,7 +42,7 @@
                             <h2 class="text-success"><?php echo $post->getTitle() ?></h2> 
                             <div class="d-flex flex-row mt-3 mb-3">
                                 <a href="">
-                                    <img src="<?php echo "./public/img/" . $freelancer->getImg() ?>" alt="aaaa" height="30px" class="avt">
+                                    <img src="<?php echo Helper::get_url('user/public/img/') . $freelancer->getImg() ?>" alt="aaaa" height="30px" class="avt">
                                 </a>
                                 <a href=""><h6> &ensp; <?php echo $freelancer->getName() ?></h6></a>
                                 <div class="line"></div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
-                            <img src="./public/img/translator.png" height="357px" alt="">
+                            <img src="<?php echo Helper::get_url('user/public/img/') . $post->getImg() ?>" width="495px" alt="">
                             <hr>
                             <div class="d-flex justify-content-center">
                                 <button type="button" class="btn btn-success">Mua dịch vụ</button>

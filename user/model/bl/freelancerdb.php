@@ -14,6 +14,10 @@ class FreelancerDatabase extends Database{
                 $freelancer->setSkill($row['ky_nang']);
                 $freelancer->setExp($row['kinh_nghiem']);
                 $freelancer->setImg($row['anh']);
+                $freelancer->setExp($row['kinh_nghiem']);
+                $freelancer->setImg($row['anh']);
+                $freelancer->setAddress($row['dia_chi']);
+                $freelancer->setFacebook($row['facebook']);
                 $FreeLancers[] = $freelancer;
             }
         } 
@@ -38,6 +42,8 @@ class FreelancerDatabase extends Database{
                 $freelancer->setSkill($row['ky_nang']);
                 $freelancer->setExp($row['kinh_nghiem']);
                 $freelancer->setImg($row['anh']);
+                $freelancer->setAddress($row['dia_chi']);
+                $freelancer->setFacebook($row['facebook']);
                 $FreeLancers[] = $freelancer;
             }
         } else {
@@ -51,22 +57,22 @@ class FreelancerDatabase extends Database{
         $params = [
             "id" => (int)$id,
         ];
-        $result = self::db_get_list_condition($sql, $params);
+        $result = self::db_get_row($sql, $params);
         if ($result) { 
-            foreach ($result as $row) {
-                $freelancer = new Freelancer();
-                $freelancer->setFreeId($row['ma_nguoi_tim_viec']);
-                $freelancer->setUserId($row['ma_nguoi_dung']);
-                $freelancer->setName($row['ho_ten']);
-                $freelancer->setBack($row['ly_lich']);
-                $freelancer->setSkill($row['ky_nang']);
-                $freelancer->setExp($row['kinh_nghiem']);
-                $freelancer->setImg($row['anh']);
-                return $freelancer;
-            }
+            $freelancer = new Freelancer();
+            $freelancer->setFreeId($result['ma_nguoi_tim_viec']);
+            $freelancer->setUserId($result['ma_nguoi_dung']);
+            $freelancer->setName($result['ho_ten']);
+            $freelancer->setBack($result['ly_lich']);
+            $freelancer->setSkill($result['ky_nang']);
+            $freelancer->setExp($result['kinh_nghiem']);
+            $freelancer->setImg($result['anh']);
+            $freelancer->setAddress($result['dia_chi']);
+            $freelancer->setFacebook($result['facebook']);
+            return $freelancer;
         }
         else {
-            return [];
+            return null;
         }
     }
 }
