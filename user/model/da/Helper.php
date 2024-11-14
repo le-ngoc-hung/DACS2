@@ -23,12 +23,17 @@ class Helper
 
     public static function input_value($inputname, $filter = FILTER_DEFAULT, $option = FILTER_SANITIZE_SPECIAL_CHARS)
     {
-        $value = filter_input(INPUT_POST, $inputname, $filter, $option);
-        if ($value === null) {
+        if (isset($_POST[$inputname])) {
+            $value = filter_input(INPUT_POST, $inputname, $filter, $option);
+        }
+        elseif (isset($_GET[$inputname])) {
             $value = filter_input(INPUT_GET, $inputname, $filter, $option);
+        } else {
+            $value = null;  
         }
         return $value;
     }
+
 
     public static function is_submit($hidden)
     {

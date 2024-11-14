@@ -17,11 +17,11 @@
   width: 643px;
   margin-left: -10px;
 }
-li{
+#pro li{
     list-style: none;
     margin-top: 10px;
 }
-a{
+#pro a{
   text-decoration: none;
   color: black;
 }
@@ -47,8 +47,6 @@ a{
 }
 .stars{
     color: #ffc107;
-    font-size: 24px;
-    text-align: center;
 }
 .summary {
     font-size: 16px;
@@ -97,12 +95,16 @@ a{
 .bi-facebook{
     color: blue;
 }
-.ser, .exp, .intro{
+.ser, .intro{
     padding: 20px;
     padding-left: 30px;
     padding-right: 30px;
 }
-.skill{
+#pro .skill{
+    padding-top: 20px;
+    padding-left: 40px;
+}
+#pro .exp{
     padding-top: 20px;
     padding-left: 40px;
 }
@@ -115,13 +117,11 @@ a{
     margin-left: -12px;
     border-radius: 16px;
 }
-
 .image-container img {
     max-width: 100%; 
     height: auto; 
     object-fit: cover; 
 }
-
 .color-block {
     position: absolute; 
     top: 0; 
@@ -188,3 +188,4 @@ a{
 nav{
     margin-top: -20px;
 }
+

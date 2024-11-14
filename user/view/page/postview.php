@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/post.css') ?>">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/poststyle.css') ?>">
     <title>Document</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <?php
+        $condition = Helper::input_value('condition');
+    ?>
+    <div class="container-fluid" id="post">
         <div class="row"></div>
         <div class="row mt-5 mb-5">
             <div class="col-1"></div>
@@ -32,9 +35,9 @@
                         Sắp xếp
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=late') ?>">Mới nhất</a></li>
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=popular') ?>">Bán chạy nhất</a></li>
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=price') ?>">Giá tăng dần</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=late&condition=') . $condition ?>">Mới nhất</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=popular&condition=') . $condition ?>">Bán chạy nhất</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=price&condition=') . $condition ?>">Giá tăng dần</a></li>
                     </ul>
                 </div>
             </div>
@@ -55,30 +58,24 @@
                             }
                             $offset = ($page-1)*$limit;
                             $postdb = new PostDatabase();
-                            $order = Helper::input_value('order');
-                            if ($order !== null && !empty($order)){
-
-                            }
-                            else{
-                                $list = $postdb->displayLimit($limit, $offset);
-                            }
-                            $list = [];
-                            switch ($order){
-                                case 'late':
-                                    $list = $postdb->orderByLatest($limit, $offset);
-                                    break;
-                                case 'price':
-                                    $list = $postdb->orderByPrice($limit, $offset);
-                                    break;
-                                case 'popular':
-                                    $list = $postdb->orderByPopular($limit, $offset);
-                                    break;
-                                default:
-                                    $list = $postdb->displayLimit($limit, $offset);
-                            }
                             $freelancer = new Freelancer();
                             $freedb = new FreelancerDatabase();
-                            $totalPages = ceil($postdb->countRow()/$limit);
+                            $totalRows = $postdb->countRow($condition);
+                            $order = Helper::input_value('order');
+                            switch ($order){
+                                case 'late':
+                                    $list = $postdb->orderByLatest($limit, $offset, $condition);
+                                    break;
+                                case 'price':
+                                    $list = $postdb->orderByPrice($limit, $offset, $condition);
+                                    break;
+                                case 'popular':
+                                    $list = $postdb->orderByPopular($limit, $offset, $condition);
+                                    break;
+                                default:
+                                    $list = $postdb->displayLimit($limit, $offset, $condition);
+                            }
+                            $totalPages = ceil($totalRows/$limit);
                             foreach ($list as $post){
                             $freelancer = $freedb->getById($post->getFreeId());
                         ?>
@@ -123,6 +120,9 @@
             <div class="col-1"></div>
         </div>
     </div>
+    <?php
+    if ($totalPages>1){
+    ?>
     <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
                 <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
@@ -142,6 +142,8 @@
                 </li>
             </ul>
         </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <?php
+    }
+    ?>
 </body>
 </html>

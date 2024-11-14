@@ -1,4 +1,4 @@
-input:not([type="radio"]){
+#register input:not([type="radio"]){
     border: 1px solid gray;
     border-right: none;
     border-radius: 4px 4px;
@@ -6,7 +6,7 @@ input:not([type="radio"]){
     width: 270px;
     padding: 10px;
 }
-i{
+#register i{
     font-size: 20px;
 }
 .icon{
@@ -15,7 +15,7 @@ i{
     border: 1px solid gray;
     border-left: none;
 }
-.logo{
+#register .logo{
     height: auto;
     width: 120px;
     margin-bottom: 10px;
@@ -24,16 +24,11 @@ i{
     display: inline-block;
     margin-top: 15px;
 }
-b{
+#register b{
     font-size: 25px;
     margin-right: -20px;
 }
-body{
-    background-image: url("../img/back.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-}
-form{
+#register form{
     background-color: white;
     border: 1px solid gray;
 }
@@ -53,10 +48,16 @@ button{
     width: 300px;
     padding: 10px;
 }
-a{
+#register a{
     text-decoration: none;
     color: black;
 }
-a:hover{
+#register a:hover{
     color: blue;
+}
+.tb{
+	color: red;
+    font-size: 15px;
+    margin-bottom: 10px;
+    visibility: hidden;
 }

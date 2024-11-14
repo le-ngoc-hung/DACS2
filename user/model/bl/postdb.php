@@ -24,13 +24,16 @@ class PostDatabase extends Database{
         return $Posts;
     }
 
-    function displayLimit($limit, $offset) {
+    function displayLimit($limit, $offset, $search = '') {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $sql = "SELECT * FROM bai_dang_ca_nhan LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search LIMIT $limit OFFSET $offset";
+        $params = [
+            "search" => '%' . $search . '%',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
         $Posts = [];
-        $result = self::db_get_list($sql);
-        if ($result) { 
+        if ($result) {
             foreach ($result as $row) {
                 $Post = new Post();
                 $Post->setPostId($row['ma_bai_dang']);
@@ -46,14 +49,17 @@ class PostDatabase extends Database{
         } else {
             return []; 
         }
-        return $Posts;
+        return $Posts; 
     }
     
-    function countRow(){
-        $sql = "SELECT COUNT(*) as total FROM bai_dang_ca_nhan";
-        $result = self::db_get_list($sql);
+    function countRow($search){
+        $sql = "SELECT COUNT(*) as total FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search";
+        $params = [
+            "search" => '%' . $search . '%',
+        ];
+        $result = self::db_get_row($sql, $params);
         if ($result){
-            $total = $result[0]['total'];
+            $total = $result['total'];
         }
         return $total;
     }
@@ -109,13 +115,16 @@ class PostDatabase extends Database{
         }
     }
 
-    function orderByLatest($limit,$offset){
+    function orderByLatest($limit, $offset, $search = '') {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $sql = "SELECT * FROM bai_dang_ca_nhan ORDER BY ngay_tao DESC LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search ORDER BY ngay_tao LIMIT $limit OFFSET $offset";
+        $params = [
+            "search" => '%' . $search . '%',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
         $Posts = [];
-        $result = self::db_get_list($sql);
-        if ($result) { 
+        if ($result) {
             foreach ($result as $row) {
                 $Post = new Post();
                 $Post->setPostId($row['ma_bai_dang']);
@@ -128,20 +137,23 @@ class PostDatabase extends Database{
                 $Post->setSpeId($row['ma_chuyen_nganh']);
                 $Posts[] = $Post;
             }
-        } 
-        else {
+        } else {
             return []; 
         }
-        return $Posts;
+        return $Posts; 
     }
+    
 
-    function orderByPrice($limit,$offset){
+    function orderByPrice($limit, $offset, $search = '') {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $sql = "SELECT * FROM bai_dang_ca_nhan ORDER BY gia DESC LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search ORDER BY gia LIMIT $limit OFFSET $offset";
+        $params = [
+            "search" => '%' . $search . '%',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
         $Posts = [];
-        $result = self::db_get_list($sql);
-        if ($result) { 
+        if ($result) {
             foreach ($result as $row) {
                 $Post = new Post();
                 $Post->setPostId($row['ma_bai_dang']);
@@ -154,24 +166,27 @@ class PostDatabase extends Database{
                 $Post->setSpeId($row['ma_chuyen_nganh']);
                 $Posts[] = $Post;
             }
-        } 
-        else {
+        } else {
             return []; 
         }
-        return $Posts;
+        return $Posts; 
     }
 
-    function orderByPopular($limit,$offset){
+    function orderByPopular($limit,$offset,$search=''){
         $limit = (int)$limit;
         $offset = (int)$offset;
         $sql = "SELECT bd.*, COUNT(ntdc.ma_bai_dang) AS so_luong_chon
                 FROM bai_dang_ca_nhan AS bd
                 LEFT JOIN nha_tuyen_dung_chon AS ntdc ON bd.ma_bai_dang = ntdc.ma_bai_dang
+                WHERE bd.tieu_de LIKE :search
                 GROUP BY bd.ma_bai_dang
                 ORDER BY so_luong_chon DESC
                 LIMIT $limit OFFSET $offset";
+        $params = [
+            "search" => '%' . $search . '%',
+        ];
         $Posts = [];
-        $result = self::db_get_list($sql);
+        $result = self::db_get_list_condition($sql,$params);
         if ($result) { 
             foreach ($result as $row) {
                 $Post = new Post();
@@ -214,6 +229,9 @@ class PostDatabase extends Database{
                 $posts[] = $Post;
             }
         }
+        else{
+            return [];
+        }
         return $posts;
     }
 
@@ -226,7 +244,6 @@ class PostDatabase extends Database{
         ];
         $result = self::db_get_list_condition($sql, $params);
         $posts = []; 
-    
         if ($result) { 
             foreach ($result as $row) {
                 $Post = new Post();
@@ -240,6 +257,38 @@ class PostDatabase extends Database{
                 $Post->setSpeId($row['ma_chuyen_nganh']);
                 $posts[] = $Post;
             }
+        }
+        else{
+            return [];
+        }
+        return $posts;
+    }
+
+    function searchByTitle ($title, $limit, $offset){
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :title LIMIT $limit OFFSET $offset";
+        $params = [
+            'title' => '%' . $title . '%',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
+        $posts = []; 
+        if ($result) { 
+            foreach ($result as $row) {
+                $Post = new Post();
+                $Post->setPostId($row['ma_bai_dang']);
+                $Post->setFreeId($row['ma_nguoi_tim_viec']);
+                $Post->setTitle($row['tieu_de']);
+                $Post->setContent($row['noi_dung']);
+                $Post->setCreateDate($row['ngay_tao']);
+                $Post->setPrice($row['gia']);
+                $Post->setImg($row['hinh_anh']);
+                $Post->setSpeId($row['ma_chuyen_nganh']);
+                $posts[] = $Post;
+            }
+        }
+        else{
+            return [];
         }
         return $posts;
     }
