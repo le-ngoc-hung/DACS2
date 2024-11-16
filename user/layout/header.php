@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/header.css') ?>">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/headerstyle.css') ?>">
     <title>Document</title>
 </head>
 <body>
@@ -40,10 +40,14 @@
                 </div>
             </div>
             <div class="col-md-2 log">
-                <a href="">Trở thành Freelancer</a>
+                <a href="<?php echo "?lay=intro" ?>">Trở thành Freelancer</a>
             </div>
-            <div class="col-md-3 log">
-                <a href="">Đăng nhập</a>
+            <div class="col-md-1 mt-1">
+                <a href=""><i class="bi bi-bell-fill"></i> </a>&ensp; &ensp;
+                <a href=""><i class="bi bi-briefcase-fill"></i></a>
+            </div>
+            <div class="col-md-2 log">
+                <a href="<?php echo "?lay=login" ?>">Đăng nhập</a>
                 <div class="line"></div>
                 <a href="<?php echo "?lay=register" ?>">Đăng kí</a>
             </div>

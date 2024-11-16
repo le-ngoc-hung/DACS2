@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/registyle.css">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/js/register.js') ?>">
     <title>Document</title>
 </head>
 <body>
@@ -17,7 +17,7 @@
                 <form action="">
                     <div class="row wel">
                         <b>Chào mừng đến với</b>
-                        <a href=""><img src="../public/img/logo.jpg" alt="Logo" class="logo"></a>
+                        <a href=""><img src="<?php echo Helper::get_url('user/public/img/logo.jpg') ?>" alt="Logo" class="logo"></a>
                     </div>
                     <div class="row text-muted fs-5 mb-4"><p>Vui lòng đăng nhập để tiếp tục</p></div>
                     <div class="row mb-4">

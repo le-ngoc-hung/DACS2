@@ -216,7 +216,7 @@
                             <img src="<?php echo Helper::get_url('user/public/img/')  . $post->getImg() ?>" alt="">
                           </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-4">
                           <div class="title d-flex flex-column">
                             <div class="truncate-multiline">
                                 <b><?php echo $post->getTitle() ?> </b>
@@ -237,6 +237,10 @@
                                 <button class="btn btn-success">Chi tiết</button>
                             </div>
                           </div>
+                        </div>
+                        <div class="col-1">
+                          <a href="" style="color: brown;"><i class="bi bi-pen-fill"></i></a> <br> <br>
+                          <a href="" style="color: red;"><i class="bi bi-trash3-fill"></i></a>
                         </div>
                       </div>
                       <hr style="width: 100%;">

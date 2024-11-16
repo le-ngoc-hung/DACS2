@@ -75,5 +75,20 @@ class FreelancerDatabase extends Database{
             return null;
         }
     }
+
+    function addFreelancer($freelancer){
+        $sql = "INSERT INTO nguoi_tim_viec (ma_nguoi_dung, ho_ten)
+                VALUES (:userId, :name) ";
+        $params = [
+            "userId" => (int)$freelancer->getUserId(),
+            "name" => $freelancer->getName(),
+        ];
+        if (self::db_execute($sql, $params)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 ?>

@@ -20,5 +20,20 @@ class CompanyDatabase extends Database{
             return []; 
         }
     }
+
+    function addCompany($company){
+        $sql = "INSERT INTO nha_tuyen_dung (ma_nguoi_dung, ten_cong_ty)
+                VALUES (:userId, :name) ";
+        $params = [
+            "userId" => (int)$company->getUserId(),
+            "name" => $company->getName(),
+        ];
+        if (self::db_execute($sql, $params)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 ?>

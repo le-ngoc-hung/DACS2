@@ -35,7 +35,7 @@
   .log {
     display: flex;
   }
-  #header a {
+  #header a{
     text-decoration: none;
     color: yellow;
     margin-top: 5px;
@@ -48,5 +48,3 @@
   #header .dropdown ul{
     background-color: rgba(0, 0, 0, 0.7);
   }
-  
-  

@@ -22,6 +22,9 @@
             case "login":
                 include_once 'view/page/login.php';
                 break;
+            case "addpost":
+                include_once 'view/page/addpost.php';
+                break;
         }
     }
     else{
