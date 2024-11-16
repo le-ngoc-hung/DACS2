@@ -239,8 +239,8 @@
                           </div>
                         </div>
                         <div class="col-1">
-                          <a href="" style="color: brown;"><i class="bi bi-pen-fill"></i></a> <br> <br>
-                          <a href="" style="color: red;"><i class="bi bi-trash3-fill"></i></a>
+                          <a href="<?php echo "?lay=editpost&id=" . $post->getPostId() ?>" style="color: brown;"><i class="bi bi-pen-fill"></i></a> <br> <br>
+                          <a href="<?php echo "?lay=deletepost&id=" . $post->getPostId() ?>" style="color: red;"><i class="bi bi-trash3-fill"></i></a>
                         </div>
                       </div>
                       <hr style="width: 100%;">

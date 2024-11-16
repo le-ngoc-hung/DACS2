@@ -292,6 +292,51 @@ class PostDatabase extends Database{
         }
         return $posts;
     }
+
+    function addPost($post){
+        $sql = "INSERT INTO bai_dang_ca_nhan (ma_nguoi_tim_viec, tieu_de, noi_dung, gia, hinh_anh, ma_chuyen_nganh)
+                VALUES(:freeId, :title, :content, :price, :img, :speId)";
+        $params = [
+            "freeId" => (int)$post->getFreeId(),
+            "title" => $post->getTitle(),
+            "content" => $post->getContent(),
+            "price" => (float)$post->getPrice(),
+            "img" => $post->getImg(),
+            "speId" => (int)$post->getSpeId(),
+        ];
+        if (self::db_execute($sql, $params)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function editPost($post) {
+        $sql = "UPDATE bai_dang_ca_nhan 
+                SET tieu_de = :title, 
+                    noi_dung = :content, 
+                    gia = :price, 
+                    hinh_anh = :img, 
+                    ma_chuyen_nganh = :speId
+                WHERE ma_bai_dang = :postId";
+        
+        $params = [
+            "title" => $post->getTitle(),
+            "content" => $post->getContent(),
+            "price" => (float)$post->getPrice(),
+            "img" => $post->getImg(),
+            "speId" => (int)$post->getSpeId(),
+            "postId" => (int)$post->getPostId() 
+        ];
+
+        if (self::db_execute($sql, $params)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     
 }
 ?>

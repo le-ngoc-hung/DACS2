@@ -25,6 +25,9 @@
             case "addpost":
                 include_once 'view/page/addpost.php';
                 break;
+            case "editpost":
+                include_once 'view/page/editpost.php';
+                break;
         }
     }
     else{
