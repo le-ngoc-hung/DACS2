@@ -1,3 +1,6 @@
+<?php
+ob_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/profilestyle.css') ?>">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/profile.css') ?>">
     <title>Document</title>
     <?php
     $freelancer = new Freelancer();
@@ -84,7 +87,7 @@
                     <?php
                     }
                     ?>
-                    <li><i class="bi bi-briefcase-fill"></i> Dự án đã làm: <?php echo $totalPro ?></li>
+                    <li><i class="bi bi-briefcase-fill" style="color: brown;"></i> Dự án đã làm: <?php echo $totalPro ?></li>
                 </ul>
                 <hr>
                 <ul class="contact">
@@ -94,7 +97,7 @@
                   if ($freelancer->getFacebook())
                   {
                   ?>
-                  <a href="<?php echo $freelancer->getFacebook() ?>" target="_blank"><li><i class="bi bi-facebook"></i> Facebook</li></a>
+                  <a href="<?php echo $freelancer->getFacebook() ?>" target="_blank" style="color: blue;"><li><i class="bi bi-facebook"></i> Facebook</li></a>
                   <?php
                   }
                   ?>
@@ -234,7 +237,7 @@
                               <b><?php echo $post->getPrice() ?></b>
                             </div>
                             <div class="time text-success d-flex align-items-end mt-auto justify-content-center">
-                                <button class="btn btn-success">Chi tiết</button>
+                              <a href="<?php echo "?lay=postdetail&id=" . $post->getPostId() ?>" class="btn btn-success text-white text-center w-100">Chi tiết</a>
                             </div>
                           </div>
                         </div>
@@ -290,7 +293,7 @@
                         <?php
                         foreach ($exp as $ex){
                         ?>
-                        <li class="skill-exp"><i class="bi bi-briefcase-fill"></i> <?php echo $ex ?></li>
+                        <li class="skill-exp"><i class="bi bi-briefcase-fill"  style="color: brown;"></i> <?php echo $ex ?></li>
                         <?php
                         }
                         ?>

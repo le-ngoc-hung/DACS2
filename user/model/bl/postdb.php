@@ -337,6 +337,16 @@ class PostDatabase extends Database{
         }
     }
     
-    
+    function deletePost($id){
+        $sql = "DELETE FROM bai_dang_ca_nhan WHERE ma_bai_dang = :id";
+        $params = [
+            "id" => (int)$id,
+        ];
+        if (self::db_execute($sql, $params)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

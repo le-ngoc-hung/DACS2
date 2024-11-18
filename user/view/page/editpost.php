@@ -23,7 +23,7 @@ ob_start();
             <div class="row">
                 <div class="col-3"></div>
                 <div class="col-6">
-                    <form action="">
+                    <form action="" method="post" enctype="multipart/form-data">
                         <div class="container">
                             <div class="row mt-4 text-center">
                                 <div class="col-12">
@@ -91,13 +91,9 @@ ob_start();
 </html>
 <?php
 if (Helper::is_submit('edit')) {
-    $post = new Post();
-    $postdb = new PostDatabase();
     $speName = Helper::input_value('speName');
 
     $spe = $spedb->getBySpeName($speName);
-    
-    $post->setFreeId(2);
     $post->setTitle(Helper::input_value('title'));
     $post->setContent(Helper::input_value('content'));
     $post->setPrice(Helper::input_value('price'));
@@ -112,13 +108,12 @@ if (Helper::is_submit('edit')) {
         } else {
             throw new Exception("Lỗi khi tải file.");
         }
-    } else {
-        $post->setImg(''); 
     }
+    
 
     $postdb->editPost($post);
 
-    Helper::redirect("user/index.php");
+    Helper::redirect('?lay=profile&id=' . $post->getFreeId());
 }
 ob_end_flush();
 ?>

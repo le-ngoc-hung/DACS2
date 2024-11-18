@@ -28,6 +28,9 @@
             case "editpost":
                 include_once 'view/page/editpost.php';
                 break;
+            case "deletepost":
+                include_once 'view/page/deletepost.php';
+                break;
         }
     }
     else{

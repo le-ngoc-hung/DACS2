@@ -92,9 +92,6 @@
     color: blue;
     cursor: pointer;
 }
-.bi-facebook{
-    color: blue;
-}
 .ser, .intro{
     padding: 20px;
     padding-left: 30px;
@@ -160,9 +157,6 @@
 }
 .profi2 .skill-exp{
     margin-left: -30px;
-}
-.bi-briefcase-fill{
-    color: brown;
 }
 .bi-flag-fill{
     color: red;

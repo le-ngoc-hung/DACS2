@@ -18,3 +18,8 @@ showMoreBtn.addEventListener('click', () => {
         contentBox.style.webkitMaskImage = 'none';
     }
 });
+
+
+
+
+
