@@ -1,6 +1,15 @@
 <?php
+if (isset($_GET['logout'])) {
+    session_unset();
+    
+    session_destroy();
+    
+    header("Location: index.php");
+    exit(); 
+}
+
 $currentParams = $_GET;
-unset($currentParams['condition']); 
+unset($currentParams['condition']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +56,7 @@ unset($currentParams['condition']);
                         <img src="<?php echo Helper::get_url('user/public/img/j97.png') ?>" alt="" class="avata" width=35px; height=35px;> <span class="text-white">Ngọc Hùng</span>
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
+                        <li><a class="dropdown-item" href="?logout=true">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
                     </ul>
                 </div>
             </div>

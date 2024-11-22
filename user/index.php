@@ -24,7 +24,7 @@ include_once './model/bl/jobdb.php';
 $db = new Database();
 
 // Kiểm tra vai trò trong session
-if (isset($_SESSION['role']) && $_SESSION['role'] === 'quan_ly') {
+if (isset($_SESSION['userRole']) && $_SESSION['userRole'] === 'quan_ly') {
     // Nhúng file admin nếu vai trò là quản lý
     include_once './view/common/admin.php';
 } else {
