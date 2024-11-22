@@ -34,6 +34,9 @@
             case "buy":
                 include_once 'view/page/buy.php';
                 break;
+            case "infor":
+                include_once 'view/page/infor.php';
+                break;
         }
     }
     else{

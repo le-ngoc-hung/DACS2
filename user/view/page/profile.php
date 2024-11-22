@@ -103,6 +103,9 @@ ob_start();
                   ?>
                 </ul>
                 <hr>
+                <?php
+                if ($totalRate>0){
+                ?>
                 <div class="review-container">
                     <div class="stars text-center fs-3">
                       <span><?php echo $ratefreedb->getAvgRate($id) ?></span>
@@ -174,9 +177,11 @@ ob_start();
                   </div>
                   <?php
                     }
-                  ?>
-                  
+                  ?>   
                 </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="col-6 mx-3">
               <div class="profi2">

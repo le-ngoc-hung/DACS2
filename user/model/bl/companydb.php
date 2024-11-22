@@ -17,7 +17,7 @@ class CompanyDatabase extends Database{
             return $com;
         }
         else {
-            return []; 
+            return null; 
         }
     }
 

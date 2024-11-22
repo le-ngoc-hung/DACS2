@@ -1,0 +1,11 @@
+
+#editinfor input:not([type="file"]){
+    height: 40px;
+    padding: 15px;
+    width: 300px;
+}
+#editinfor textarea{
+    padding: 15px;
+    height: 130px;
+    width: 300px;
+}

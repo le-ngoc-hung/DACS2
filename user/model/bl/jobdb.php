@@ -107,6 +107,31 @@ class JobDatabase extends Database{
         return $total;
     }
 
+    public function GET_CVLimitByCompanyId($id){
+        $id = (int)$id;
+        $sql = "SELECT * FROM cong_viec WHERE ma_nha_tuyen_dung = $id";
+        $Jobs = [];
+        $result = self::db_get_list($sql);
+        if ($result) { 
+            foreach ($result as $row) {
+                $Job = new Job();
+                $Job->setMaCongViec($row['ma_cong_viec']);
+                $Job->setMaNhaTuyenDung($row['ma_nha_tuyen_dung']);
+                $Job->setTieuDeCongViec($row['tieu_de_cong_viec']);
+                $Job->setMoTaCongViec($row['mo_ta_cong_viec']);
+                $Job->setMucLuong($row['muc_luong']);
+                $Job->setNgayTao($row['ngay_tao']);
+                $Job->setMaChuyenNganh($row['ma_chuyen_nganh']);
+                $Job->setTrangThai($row['trang_thai']);
+                $Job->setKyNangBatBuoc($row['ky_nang_bat_buoc']);
+                $Jobs[] = $Job;
+            }
+        } 
+        else {
+            return []; 
+        }
+        return $Jobs;
+    }
       
 }
 ?>
