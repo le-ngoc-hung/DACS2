@@ -52,7 +52,7 @@ class PostDatabase extends Database{
         return $Posts; 
     }
     
-    function countRow($search){
+    function countRow($search=''){
         $sql = "SELECT COUNT(*) as total FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search";
         $params = [
             "search" => '%' . $search . '%',
@@ -347,6 +347,17 @@ class PostDatabase extends Database{
         } else {
             return false;
         }
+    }
+
+    function countByMonth($month){
+        $month = (int)$month;
+        $sql = "SELECT count(*) as total FROM bai_dang_ca_nhan WHERE month(ngay_tao) = $month";
+        $result = self::db_get_row($sql);
+        $total = 0;
+        if ($result){
+            $total = $result['total'];
+        }
+        return $total;
     }
 }
 ?>

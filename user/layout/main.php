@@ -31,6 +31,9 @@
             case "deletepost":
                 include_once 'view/page/deletepost.php';
                 break;
+            case "buy":
+                include_once 'view/page/buy.php';
+                break;
         }
     }
     else{

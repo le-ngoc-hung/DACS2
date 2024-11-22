@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if(Helper::is_submit('edit')) {
     $freelancerdb = new FreelancerDatabase();

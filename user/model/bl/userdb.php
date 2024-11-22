@@ -72,5 +72,120 @@ class UserDatabase extends Database{
         }
         return $total;
     }
+
+    function displayLimit($limit, $offset, $search = '') {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $sql = "SELECT * FROM nguoi_dung WHERE ten_dang_nhap LIKE :search and vai_tro <> :vai_tro LIMIT $limit OFFSET $offset";
+        $params = [
+            "search" => '%' . $search . '%',
+            "vai_tro" => 'quan_ly',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
+        $Users = [];
+        if ($result) {
+            foreach ($result as $row) {
+                $user = new User();
+                $user->setUserId($row['ma_nguoi_dung']);
+                $user->setUserName($row['ten_dang_nhap']);
+                $user->setPass($row['mat_khau']);
+                $user->setEmail($row['email']);
+                $user->setRole($row['vai_tro']);
+                $user->setCreateDate($row['ngay_tao']);
+                $user->setUpdateDate($row['ngay_cap_nhat']);
+                $Users[] = $user;
+            }
+        } else {
+            return []; 
+        }
+        return $Users; 
+    }
+
+    function countRow($search=''){
+        $sql = "SELECT COUNT(*) as total FROM nguoi_dung WHERE ten_dang_nhap LIKE :search and vai_tro <> :vai_tro";
+        $params = [
+            "search" => '%' . $search . '%',
+            "vai_tro" => 'quan_ly',
+        ];
+        $result = self::db_get_row($sql, $params);
+        $total = 0;
+        if ($result){
+            $total = $result['total'];
+        }
+        return $total;
+    }
+
+    function countRowByRole($role, $search = '') {
+        $sql = "SELECT COUNT(*) as total 
+                FROM nguoi_dung 
+                WHERE ten_dang_nhap LIKE :search 
+                  AND vai_tro = :role";
+        $params = [
+            "search" => '%' . $search . '%',
+            "role" => $role,
+        ];
+        $result = self::db_get_row($sql, $params);
+        $total = 0;
+        if ($result) {
+            $total = $result['total'];
+        }
+        return $total;
+    }
+    
+
+    function getUserListByRole($role, $search = '', $limit, $offset) {
+        $limit = (int)$limit;
+        $offset = (int)$offset;
+        $sql = "SELECT * 
+                FROM nguoi_dung 
+                WHERE vai_tro = :role AND ten_dang_nhap LIKE :search LIMIT $limit OFFSET $offset";
+        $params = [
+            "role" => $role,
+            "search" => '%' . $search . '%',
+        ];
+        $result = self::db_get_list_condition($sql, $params);
+        $Users = [];
+        if ($result) {
+            foreach ($result as $row) {
+                $user = new User();
+                $user->setUserId($row['ma_nguoi_dung']);
+                $user->setUserName($row['ten_dang_nhap']);
+                $user->setPass($row['mat_khau']);
+                $user->setEmail($row['email']);
+                $user->setRole($row['vai_tro']);
+                $user->setCreateDate($row['ngay_tao']);
+                $user->setUpdateDate($row['ngay_cap_nhat']);
+                $Users[] = $user;
+            }
+        } else {
+            return []; 
+        }
+        return $Users; 
+    }
+
+    function login($username, $password) {
+        $sql = "SELECT * FROM nguoi_dung WHERE ten_dang_nhap = :username";
+        $params = [
+            "username" => $username,
+        ];
+        $result = self::db_get_row($sql, $params);
+        if ($result) {
+            // Kiểm tra mật khẩu
+            if (password_verify($password, $result['mat_khau'])) {
+                $user = new User();
+                $user->setUserId($result['ma_nguoi_dung']);
+                $user->setUserName($result['ten_dang_nhap']);
+                $user->setPass($result['mat_khau']);
+                $user->setEmail($result['email']);
+                $user->setRole($result['vai_tro']);
+                $user->setCreateDate($result['ngay_tao']);
+                $user->setUpdateDate($result['ngay_cap_nhat']);
+                return $user; // Đăng nhập thành công
+            }
+        }
+        return null; // Đăng nhập thất bại
+    }
+    
+    
 }
 ?>

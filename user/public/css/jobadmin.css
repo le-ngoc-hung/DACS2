@@ -1,0 +1,31 @@
+#jobadmin .line{
+    height: 50px;
+    border-left: 5px solid orange;
+    margin: 0 20px;
+    border-radius: 4px 4px;
+}
+#jobadmin .dropdown{
+    text-align: right;
+    margin-top: 10px;
+    margin-right: -200px;
+}
+#jobadmin .dropdown-toggle{
+    border: none;
+    background-color: white;
+    color: black;
+}
+.txt{
+    margin-left: -70px;
+    margin-top: -3px;
+}
+#jobadmin {
+    width: 90%; 
+}
+.table td:nth-child(4) > span {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; 
+    -webkit-box-orient: vertical;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: normal; 
+}

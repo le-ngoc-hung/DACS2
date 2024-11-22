@@ -38,9 +38,9 @@ session_start();
                         Sắp xếp
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=late&condition=') . $condition ?>">Mới nhất</a></li>
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=popular&condition=') . $condition ?>">Bán chạy nhất</a></li>
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?order=price&condition=') . $condition ?>">Giá tăng dần</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=post&order=late&condition=') . $condition ?>">Mới nhất</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=post&order=popular&condition=') . $condition ?>">Bán chạy nhất</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=post&order=price&condition=') . $condition ?>">Giá tăng dần</a></li>
                     </ul>
                 </div>
             </div>
@@ -127,24 +127,31 @@ session_start();
     if ($totalPages>1){
     ?>
     <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
-                    <a class="page-link" href="?page=<?php echo max(1, $page - 1); ?>" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                    <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                    </li>
-                <?php endfor; ?>
-                <li class="page-item <?php if ($page >= $totalPages) echo 'disabled'; ?>">
-                    <a class="page-link" href="?page=<?php echo min($totalPages, $page + 1); ?>" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
+                <a class="page-link" 
+                href="?lay=post&page=<?php echo max(1, $page - 1); ?><?php echo !empty($order) ? '&order=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>" 
+                aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                <a class="page-link" 
+                href="?lay=post&page=<?php echo $i; ?><?php echo !empty($order) ? '&order=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>">
+                    <?php echo $i; ?>
+                </a>
+            </li>
+            <?php endfor; ?>
+            <li class="page-item <?php if ($page >= $totalPages) echo 'disabled'; ?>">
+                <a class="page-link" 
+                href="?lay=post&page=<?php echo min($totalPages, $page + 1); ?><?php echo !empty($order) ? '&order=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>" 
+                aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
     <?php
     }
     ?>

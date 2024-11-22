@@ -90,5 +90,29 @@ class FreelancerDatabase extends Database{
             return false;
         }
     }
+
+    function getByUserId($id){
+        $sql = "SELECT * FROM nguoi_tim_viec WHERE ma_nguoi_dung = :id";
+        $params = [
+            "id" => (int)$id,
+        ];
+        $result = self::db_get_row($sql, $params);
+        if ($result) { 
+            $freelancer = new Freelancer();
+            $freelancer->setFreeId($result['ma_nguoi_tim_viec']);
+            $freelancer->setUserId($result['ma_nguoi_dung']);
+            $freelancer->setName($result['ho_ten']);
+            $freelancer->setBack($result['ly_lich']);
+            $freelancer->setSkill($result['ky_nang']);
+            $freelancer->setExp($result['kinh_nghiem']);
+            $freelancer->setImg($result['anh']);
+            $freelancer->setAddress($result['dia_chi']);
+            $freelancer->setFacebook($result['facebook']);
+            return $freelancer;
+        }
+        else {
+            return null;
+        }
+    }
 }
 ?>

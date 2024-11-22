@@ -1,0 +1,69 @@
+.table img {
+    border-radius: 16px; 
+}
+.table th {
+    background-color: #f8f9fa; 
+    font-weight: bold;
+    white-space: nowrap; 
+    padding-left: 20px;
+}
+.table td{
+    padding-left: 20px;
+}
+.text-warning, .text-danger {
+    font-size: 1.2rem; 
+}
+.table td:nth-child(3) {
+    position: relative;
+    color: inherit; 
+}
+
+.table td:nth-child(4) > span {
+    display: -webkit-box;
+    -webkit-line-clamp: 4; 
+    -webkit-box-orient: vertical;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    white-space: normal; 
+}
+#postadmin h2{
+    color: red;
+}
+#postadmin {
+    width: 90%; 
+}
+.img-container {
+    width: 200px; /* Kích thước cố định cho khung ảnh */
+    height: 150px; /* Kích thước cố định cho khung ảnh */
+    background-color: #f0f0f0; /* Màu nền xám nhạt */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ẩn phần ảnh thừa */
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ảnh to quá thì cắt, nhỏ quá thì lấp đầy */
+}
+#postadmin .line{
+    height: 50px;
+    border-left: 5px solid orange;
+    margin: 0 20px;
+    border-radius: 4px 4px;
+}
+#postadmin .dropdown{
+    text-align: right;
+    margin-top: 10px;
+    margin-right: -200px;
+}
+#postadmin .dropdown-toggle{
+    border: none;
+    background-color: white;
+    color: black;
+}
+.txt{
+    margin-left: -70px;
+    margin-top: -3px;
+}

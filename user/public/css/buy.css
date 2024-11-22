@@ -1,0 +1,16 @@
+#buy input:not([type="file"]){
+    width: 95.4%;
+    height: 50px;
+    padding: 15px;
+    margin-left: 13px;
+}
+#buy textarea{
+    width: 100%;
+    padding: 15px;
+    height: 130px;
+}
+#buy form{
+    border: 1px solid gray;
+    padding-left: 50px;
+    padding-right: 50px;
+}
