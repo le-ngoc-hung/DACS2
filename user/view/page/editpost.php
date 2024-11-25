@@ -87,6 +87,23 @@ ob_start();
             </div>
         </div>
     </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Thông báo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bài đăng đã được chỉnh sửa thành công!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 <?php
@@ -109,11 +126,16 @@ if (Helper::is_submit('edit')) {
             throw new Exception("Lỗi khi tải file.");
         }
     }
-    
+    $user = $userdb->getById($myId);
 
     $postdb->editPost($post);
-
-    Helper::redirect('?lay=profile&id=' . $post->getFreeId());
+    if ($user->getRole()=='nguoi_tim_viec'){
+        Helper::redirect('?lay=profile&id=' . $post->getFreeId());
+    }
+    else{
+        Helper::redirect('?lay=postadmin&');
+    }
+    
 }
 ob_end_flush();
 ?>

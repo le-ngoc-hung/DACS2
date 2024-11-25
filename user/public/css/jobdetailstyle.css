@@ -1,0 +1,150 @@
+.hearChiTietDuAn button , .overlay button{
+    background-color: rgb(255, 255, 0);
+    color: black;
+    padding: 4px;
+    border-radius: 5px;
+    border: 2px solid black;
+    font-weight: bold;
+    transition: all 0.3s ease; /*hiệu ứng chuyển tiếp khi di chuột gần hoặc ra xa*/
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .hearChiTietDuAn {
+    background-color: rgba(133, 133, 133, 0.616);
+    font-weight: bold;
+    justify-content: space-between;
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border-color: yellow;
+    border: 2px solid rgba(255, 255, 0, 0.433);
+  }
+  
+  .container-TAG span {
+    background-color: #147833;
+    padding: 3px 5px 3px 5px;
+    border-radius: 5px;
+    margin: 5px;
+    display: inline-block;
+    color: white;
+  }
+  
+  #chiTietDuAn a,
+  button {
+    color: white;
+  }
+  
+  #chiTietDuAn a:hover {
+    color: yellow;
+    text-decoration: none;
+  }
+  
+  #chiTietDuAn button:active , .overlay button:active {
+    background-color: #147833;
+    transform: scale(0.95); /*hiệu ứng chìm nhẹ*/
+  }
+  
+  #chiTietDuAn , #danh_sach_chao_gia{
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+    
+  }
+  
+  #tomTatDuAn table {
+    color: white;
+    background-color: grey;
+    border-radius: 5px;
+  }
+  
+  .white {
+    color: white;
+  }
+  
+  #chiTietDuAn a:hover {
+    color: yellow;
+    text-decoration: none;
+  }
+  .table-striped tbody tr:nth-of-type(even) {
+    background-color: #ffffff; /* Màu cho dòng chẵn */
+  }
+  
+  .table-striped {
+    color: white;
+    background-color: grey;
+    border-radius: 5px;
+  }
+  
+  .thongTinKhachHang img {
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 2%;
+  }
+  
+  #danh_sach_chao_gia {
+    width: 70%;
+    margin-left: 1%;
+  }
+  
+  #header_gui_chao_gia .box_gia_va_thoi_gian{
+    display: flex;
+    justify-content: center;
+    background-color: grey;
+    border-radius: 5px;
+  }
+  #mo_ta_chao_gia p{
+    margin: 2% 0 2% 0;
+  }
+  #ngay_gio_chao_gia{
+    color: gray;
+  }
+  
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .overlay .form-container {
+    background: rgb(40, 40, 40);
+    color: whitesmoke;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .overlay input, textarea , button{
+    border-radius: 5px;
+  }
+  
+  .overlay button{
+    color: black;
+  }
+  .close-button {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    color: whitesmoke;
+  }
+  #chaoGiaForm #proposalAmount, #completionTime {
+    width: 100%;
+  }
+  
+  #chaoGiaForm .container{
+    padding: 10px 0 10px 0;
+  }
+  #chiTietDuAn{
+    padding: 20px;
+  }
+  #danh_sach_chao_gia{
+    padding: 20px;
+  }

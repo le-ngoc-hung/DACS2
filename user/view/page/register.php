@@ -1,10 +1,10 @@
 <?php
-if(Helper::is_submit('edit')) {
-    $freelancerdb = new FreelancerDatabase();
+if(Helper::is_submit('register')) {
+
     $freelancer = new Freelancer();
-    $companydb = new CompanyDatabase();
+
     $company = new Company();
-    $userdb = new UserDatabase();
+
     $user = new User();
     $role = Helper::input_value('choose');
     $userName = Helper::input_value('userName');
@@ -27,7 +27,7 @@ if(Helper::is_submit('edit')) {
         if ($role == 'nguoi_tim_viec') {
             $freelancer->setUserId($user2->getUserId());
             $freelancer->setName(Helper::input_value('fullName'));
-            $freelancerdb->addFreelancer($freelancer);
+            $freedb->addFreelancer($freelancer);
         } else {
             $company->setUserId($user2->getUserId());
             $company->setName(Helper::input_value('fullName'));
@@ -116,10 +116,10 @@ if(Helper::is_submit('edit')) {
                                 Tạo tài khoản
                             </button>
                         </div>
-                        <input type="hidden" name="action" value="edit">
+                        <input type="hidden" name="action" value="register">
                     </div>
                     <div class="row mb-3">
-                        <a href="">Bạn đã có tài khoản? Đăng nhập</a>
+                        <a href="?lay=login">Bạn đã có tài khoản? Đăng nhập</a>
                     </div>
                     <div class="row"></div>
                 </form>

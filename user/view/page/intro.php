@@ -1,3 +1,7 @@
+<?php
+
+$list = $freedb->display(4);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,26 +77,21 @@
             <div class="col-10">
                 <div class="container">
                     <div class="row">
-                            <?php
-                                $freedb = new FreelancerDatabase();
-                                $list = $freedb->display(4);
-                                if (!empty($list)){
-                                    foreach ($list as $fr)
-                                    {
-                            ?>
-                                <div class="col-3">
-                                    <div class="card">
-                                        <img src="<?php echo Helper::get_url('user/public/img/')  . $fr->getImg() ?>" class="card-img-top" alt="...">
-                                        <div class="card-body text-center">
-                                            <h6 class="card-title"><?php echo $fr->getName() ?></h6>
-                                            <p class="card-text"><?php echo $fr->getSkill() ?></p>
-                                        </div>
+                        <?php            
+                            foreach ($list as $fr){ 
+                        ?>
+                            <div class="col-3">
+                                <div class="card">
+                                    <img src="<?php echo Helper::get_url('user/public/img/')  . $fr->getImg() ?>" class="card-img-top" alt="...">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title"><?php echo $fr->getName() ?></h6>
+                                        <p class="card-text"><?php echo $fr->getSkill() ?></p>
                                     </div>
                                 </div>
-                            <?php
-                                    }
-                                }
-                            ?>
+                            </div>
+                        <?php
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -138,9 +137,9 @@
             <div class="col-10">
                 <h3>Trở thành Freelancer và đăng dịch vụ của bạn ngay hôm nay!</h3>
                 <p class="fs-6">Hãy trở thành Freelancer hàng đầu trên nền tảng của chúng tôi và bắt đầu kiếm thêm nguồn thu nhập!</p> <br>
-                <button type="submit" style="background-color: rgb(1, 142, 1); height:50px; width: 300px; color: white; font-size:18px; border: none; border-radius: 4px 4px 4px 4px;">
+                <a href="?lay=register" type="submit" class="btn btn-lg btn-success" style="color: white; font-size:18px; border: none; border-radius: 4px 4px 4px 4px;">
                     Bắt đầu trở thành freelancer <span class="bi bi-arrow-right"></span>
-                </button>
+                </a>
             </div>
             <div class="col-1"></div>
         </div>

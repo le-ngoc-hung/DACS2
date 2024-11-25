@@ -5,11 +5,36 @@ class JobDatabase extends Database{
     private $ma_cong_viec, $ma_nha_tuyen_dung, $tieu_de_cong_viec, $mo_ta_cong_viec, $muc_luong, $ngay_tao, $ma_chuyen_nganh, $trang_thai, $ky_nang_bat_buoc;
     
     
+    public function GET_CVLimitByCompanyId($id){
+        $id = (int)$id;
+        $sql = "SELECT * FROM cong_viec WHERE ma_nha_tuyen_dung = $id";
+        $Jobs = [];
+        $result = self::db_get_list($sql);
+        if ($result) { 
+            foreach ($result as $row) {
+                $Job = new Job();
+                $Job->setMaCongViec($row['ma_cong_viec']);
+                $Job->setMaNhaTuyenDung($row['ma_nha_tuyen_dung']);
+                $Job->setTieuDeCongViec($row['tieu_de_cong_viec']);
+                $Job->setMoTaCongViec($row['mo_ta_cong_viec']);
+                $Job->setMucLuong($row['muc_luong']);
+                $Job->setNgayTao($row['ngay_tao']);
+                $Job->setMaChuyenNganh($row['ma_chuyen_nganh']);
+                $Job->setTrangThai($row['trang_thai']);
+                $Job->setKyNangBatBuoc($row['ky_nang_bat_buoc']);
+                $Jobs[] = $Job;
+            }
+        } 
+        else {
+            return []; 
+        }
+        return $Jobs;
+    }
+    
     function countRow(){
         $sql = "SELECT COUNT(*) as total FROM cong_viec";
         
         $result = self::db_get_row($sql);
-        $total=0;
         if ($result){
             $total = $result['total'];
         }
@@ -21,7 +46,7 @@ class JobDatabase extends Database{
     public function GET_CVLimit($limit,$offset){
         $limit=(int)$limit;
         $offset=(int)$offset;
-        $sql = "SELECT * FROM cong_viec LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM cong_viec LIMIT $limit, $offset";
         $Jobs = [];
         $result = self::db_get_list($sql);
         if ($result) { 
@@ -96,6 +121,37 @@ class JobDatabase extends Database{
         }
     }
 
+    function addJob($job) {
+        $sql = "INSERT INTO cong_viec (
+                    ma_nha_tuyen_dung, 
+                    tieu_de_cong_viec, 
+                    mo_ta_cong_viec, 
+                    muc_luong, 
+                    ma_chuyen_nganh, 
+                    ky_nang_bat_buoc
+                ) VALUES (
+                    :ma_nha_tuyen_dung, 
+                    :tieu_de_cong_viec, 
+                    :mo_ta_cong_viec, 
+                    :muc_luong, 
+                    :ma_chuyen_nganh, 
+                    :ky_nang_bat_buoc
+                )";
+        $params = [
+            "ma_nha_tuyen_dung" => (int)$job->getMaNhaTuyenDung(),
+            "tieu_de_cong_viec" => $job->getTieuDeCongViec(),
+            "mo_ta_cong_viec" => $job->getMoTaCongViec(),
+            "muc_luong" => (float)$job->getMucLuong(),
+            "ma_chuyen_nganh" => (int)$job->getMaChuyenNganh(),
+            "ky_nang_bat_buoc" => $job->getKyNangBatBuoc(),
+        ];
+    
+        if (self::db_execute($sql, $params)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     function countByMonth($month){
         $month = (int)$month;
         $sql = "SELECT count(*) as total FROM cong_viec WHERE month(ngay_tao) = $month";
@@ -106,32 +162,50 @@ class JobDatabase extends Database{
         }
         return $total;
     }
-
-    public function GET_CVLimitByCompanyId($id){
-        $id = (int)$id;
-        $sql = "SELECT * FROM cong_viec WHERE ma_nha_tuyen_dung = $id";
-        $Jobs = [];
-        $result = self::db_get_list($sql);
-        if ($result) { 
-            foreach ($result as $row) {
-                $Job = new Job();
-                $Job->setMaCongViec($row['ma_cong_viec']);
-                $Job->setMaNhaTuyenDung($row['ma_nha_tuyen_dung']);
-                $Job->setTieuDeCongViec($row['tieu_de_cong_viec']);
-                $Job->setMoTaCongViec($row['mo_ta_cong_viec']);
-                $Job->setMucLuong($row['muc_luong']);
-                $Job->setNgayTao($row['ngay_tao']);
-                $Job->setMaChuyenNganh($row['ma_chuyen_nganh']);
-                $Job->setTrangThai($row['trang_thai']);
-                $Job->setKyNangBatBuoc($row['ky_nang_bat_buoc']);
-                $Jobs[] = $Job;
-            }
-        } 
-        else {
-            return []; 
+    
+    function deleteJob($id) {
+        $id = (int)$id;  
+        
+        $sql = "DELETE FROM cong_viec WHERE ma_cong_viec = :id";
+        
+        $params = [
+            "id" => $id
+        ];
+        if (self::db_execute($sql, $params)) {
+            return true; 
+        } else {
+            return false;
         }
-        return $Jobs;
     }
-      
+    
+
+    function editJob($job) {
+        $sql = "UPDATE cong_viec SET 
+                    tieu_de_cong_viec = :tieu_de_cong_viec, 
+                    mo_ta_cong_viec = :mo_ta_cong_viec, 
+                    muc_luong = :muc_luong, 
+                    ma_chuyen_nganh = :ma_chuyen_nganh, 
+                    ky_nang_bat_buoc = :ky_nang_bat_buoc,
+                    trang_thai = :trang_thai
+                WHERE ma_cong_viec = :ma_cong_viec";
+        
+        $params = [
+            "ma_cong_viec" => (int)$job->getMaCongViec(),
+            "trang_thai" => $job->getTrangThai(),
+            "tieu_de_cong_viec" => $job->getTieuDeCongViec(),
+            "mo_ta_cong_viec" => $job->getMoTaCongViec(),
+            "muc_luong" => (float)$job->getMucLuong(),
+            "ma_chuyen_nganh" => (int)$job->getMaChuyenNganh(),
+            "ky_nang_bat_buoc" => $job->getKyNangBatBuoc(),
+        ];
+        
+        if (self::db_execute($sql, $params)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    
 }
 ?>

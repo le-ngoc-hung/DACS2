@@ -1,15 +1,10 @@
-<?php
-ob_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/register.css') ?>">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body id="background-image-div">
 
@@ -18,12 +13,12 @@ ob_start();
         <div class="row">
             <div class="col-3"></div>
             <div class="col-6">
-                <form id="loginForm" action="" method="POST">
+                <form id="loginForm" action="<?php echo Helper::get_url('user/model/bl/xuLy_login.php') ?>" method="POST">
                     <div class="row wel">
                         <h1>Chào mừng đến với</h1>
-                        <a href=""><img src="/live/mvc/views/resource/pictures/logo.png" alt="Logo" class="logo" width="20%"></a>
+                        <a href=""><img src="<?php echo Helper::get_url('user/public/img/logo.jpg') ?>" alt="Logo" class="logo"></a>
                     </div>
-                    <div class="row text-light fs-5 mb-4 "><h5>Vui lòng đăng nhập để tiếp tục</h5></div>
+                    <div class="row fs-5 mb-4 "><h5>Vui lòng đăng nhập để tiếp tục</h5></div>
                     <div class="row mb-4">
                         <div class="input-group d-flex align-items-center justify-content-center">
                             <div class="icon"><i class="bi bi-people-fill">&ensp;</i></div>
@@ -38,8 +33,8 @@ ob_start();
                         </div>
                     </div>
                     <div class="row mb-4">
-                    <div class="input-group d-flex align-items-center justify-content-center text-sm text-danger ">
-                        <i>
+                    <div class="input-group d-flex align-items-center justify-content-center text-sm ">
+                        <i style="color:#ff5a5a;">
                             <?php
                                 if (isset($_SESSION['error'])) {
                                     echo  $_SESSION['error'];
@@ -54,12 +49,11 @@ ob_start();
                             <button type="submit" id="loginButton">
                                 Đăng nhập
                             </button>
-                            <input type="hidden" name="action" value="login">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <span>Bạn chưa có tài khoản?</span>
-                        <a href=""> Đăng ký</a>
+                        <a href="<?php echo Helper::get_url('user/?lay=register')?>"> Đăng ký</a>
                     </div>
                     <div class="row"></div>
                 </form>
@@ -68,32 +62,5 @@ ob_start();
         </div>
     </div>
 </body>
-<script src="<?php echo Helper::get_url('user/public/js/login.js') ?>"></script>
+<script src="<?php echo Helper::get_url("user/public/js/login.js")?>"></script>
 </html>
-<?php
-if (Helper::is_submit('login')) {
-    // Lấy dữ liệu từ form
-    
-    $username = Helper::input_value('username', FILTER_SANITIZE_STRING);
-    $password = Helper::input_value('password', FILTER_SANITIZE_STRING);
-
-    // Gọi hàm đăng nhập đã viết sẵn
-    $userdb = new UserDatabase(); // Hoặc class bạn dùng cho hàm login
-    $user = $userdb->login($username, $password); // `login()` là hàm bạn đã viết
-
-    if ($user) {
-        // Đăng nhập thành công, lưu session
-        $_SESSION['userId'] = $user->getUserId();
-        $_SESSION['userName'] = $user->getUserName();
-        $_SESSION['userRole'] = $user->getRole();
-
-        // Chuyển hướng sau đăng nhập
-        Helper::redirect('.');
-    } else {
-        // Đăng nhập thất bại
-        $_SESSION['error'] = "Tên đăng nhập hoặc mật khẩu không chính xác.";
-        Helper::redirect('?lay=login');
-    }
-}
-ob_end_flush();
-?>

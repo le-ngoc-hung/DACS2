@@ -27,11 +27,11 @@ class FreelancerDatabase extends Database{
         return $FreeLancers;
     }
 
-    function display($lim) {
-        $sql = "SELECT * FROM nguoi_tim_viec LIMIT " . intval($lim);
-        $params = [];
+    function display($limit) {
+        $limit = (int)$limit;
+        $sql = "SELECT * FROM nguoi_tim_viec LIMIT $limit";
         $FreeLancers = [];
-        $result = self::db_get_list_condition($sql, $params);
+        $result = self::db_get_list_condition($sql);
         if ($result) { 
             foreach ($result as $row) {
                 $freelancer = new Freelancer();
@@ -114,5 +114,37 @@ class FreelancerDatabase extends Database{
             return null;
         }
     }
+
+    function editFreelancer($freelancer) {
+        $sql = "UPDATE nguoi_tim_viec 
+                SET 
+                    ho_ten = :name, 
+                    ly_lich = :back, 
+                    ky_nang = :skill, 
+                    kinh_nghiem = :exp, 
+                    anh = :img, 
+                    dia_chi = :address, 
+                    facebook = :facebook 
+                WHERE ma_nguoi_tim_viec = :freeId";
+        
+        $params = [
+            "name" => $freelancer->getName(),
+            "back" => $freelancer->getBack(),
+            "skill" => $freelancer->getSkill(),
+            "exp" => $freelancer->getExp(),
+            "img" => $freelancer->getImg(),
+            "address" => $freelancer->getAddress(),
+            "facebook" => $freelancer->getFacebook(),
+            "freeId" => (int)$freelancer->getFreeId(),
+        ];
+    
+        if (self::db_execute($sql, $params)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
 }
 ?>

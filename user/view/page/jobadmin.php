@@ -5,14 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/jobadmin.css') ?>">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/jobadminstyle.css') ?>">
     <title>Document</title>
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center">
-        <?php
-            $condition = Helper::input_value('condition');
-        ?>
         <div id="jobadmin">
             <div class="container">
                 <div class="row"></div>
@@ -59,7 +56,7 @@
                 $company = new Company();
                 $companydb = new CompanyDatabase();
                 $jobdb = new JobDatabase();
-                $list = $jobdb->get_CVLimit($limit,$offset);
+                $list = $jobdb->get_CVLimit($offset,$limit);
                 $totalRows = $jobdb->countRow();
                 $totalPages = ceil($totalRows/$limit);
                 $i=1;
@@ -87,8 +84,8 @@
                     <?php echo $trangThai ?></span>
                 </td>
                 <td>
-                    <a href="" class="text-warning"><i class="bi bi-pen-fill"></i></a> <br> <br>
-                    <a href="" class="text-danger"><i class="bi bi-trash3-fill"></i></a>
+                    <a href="<?php echo Helper::get_url('user/?lay=editjob&id=') . $job->getMaCongViec() ?>" class="text-warning"><i class="bi bi-pen-fill"></i></a> <br> <br>
+                    <a href="<?php echo Helper::get_url('user/?lay=deletejob&id=') . $job->getMaCongViec() ?>" class="text-danger"><i class="bi bi-trash3-fill"></i></a>
                 </td>
             </tr>
             <?php
@@ -103,7 +100,7 @@
                 <ul class="pagination justify-content-center">
                     <li class="page-item <?php if ($page <= 1) echo 'disabled'; ?>">
                         <a class="page-link" 
-                        href="?lay=jobadmin&page=<?php echo max(1, $page - 1); ?><?php echo !empty($order) ? '&byrole=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>" 
+                        href="?lay=jobadmin&page=<?php echo max(1, $page - 1); ?>" 
                         aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
@@ -111,14 +108,14 @@
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                     <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
                         <a class="page-link" 
-                        href="?lay=jobadmin&page=<?php echo $i; ?><?php echo !empty($order) ? '&byrole=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>">
+                        href="?lay=jobadmin&page=<?php echo $i; ?>">
                             <?php echo $i; ?>
                         </a>
                     </li>
                     <?php endfor; ?>
                     <li class="page-item <?php if ($page >= $totalPages) echo 'disabled'; ?>">
                         <a class="page-link" 
-                        href="?lay=jobadmin&page=<?php echo min($totalPages, $page + 1); ?><?php echo !empty($order) ? '&byrole=' . $order : ''; ?><?php echo !empty($condition) ? '&condition=' . $condition : ''; ?>" 
+                        href="?lay=jobadmin&page=<?php echo min($totalPages, $page + 1); ?>" 
                         aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
@@ -130,5 +127,6 @@
             ?>
         </div>
     </div>
+</div>
 </body>
 </html>

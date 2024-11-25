@@ -91,8 +91,13 @@ ob_start();
 <?php
 if (Helper::is_submit('delete')) {
     $postdb->deletePost($post->getPostId());
-
-    Helper::redirect('?lay=profile&id=' . $post->getFreeId());
+    $user = $userdb->getById($myId);
+    if ($user->getRole()=='nguoi_tim_viec'){
+        Helper::redirect('?lay=profile&id=' . $post->getFreeId());
+    }
+    else{
+        Helper::redirect('?lay=postadmin&');
+    }
 }
 ob_end_flush();
 ?>

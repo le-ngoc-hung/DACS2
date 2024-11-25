@@ -1,7 +1,6 @@
 <?php
-$companydb = new CompanyDatabase();
 $id = Helper::input_value('id');
-$company = $companydb->getById($id);
+$company = $companydb->getByUserId($id);
 $jobdb = new JobDatabase();
 $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
 ?>
@@ -40,7 +39,7 @@ $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
                                     <?php echo $job->getMoTaCongViec() ?>
                                 </p>
                                 <h6 class="card-subtitle mb-3 text-success">Mức lương: <?php echo $job->getMucLuong() . " VND" ?></h6>
-                                <a href="#" class="btn btn-success">Xem chi tiết</a>
+                                <a href="<?php echo Helper::get_url('user/?lay=jobdetail&id=') . $job->getMaCongViec() ?>" class="btn btn-success">Xem chi tiết</a>
                             </div>
                         </div>
                     </li>
@@ -54,6 +53,6 @@ $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

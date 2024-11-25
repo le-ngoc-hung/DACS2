@@ -1,6 +1,6 @@
 <?php
 class Applicant{
-    private $appliId, $freeId, $jobId, $state, $appliDate, $desc;
+    private $appliId, $freeId, $jobId, $state, $appliDate, $desc, $price, $date;
 
     function __construct(){
 
@@ -12,7 +12,7 @@ class Applicant{
     function getFreeID(){
         return $this->freeId;
     }
-    function getJobID(){
+    function getJobId(){
         return $this->jobId;
     }
     function getState(){
@@ -24,15 +24,27 @@ class Applicant{
     function getDesc(){
         return $this->desc;
     }
+    function getPrice(){
+        return $this->price;
+    }
+    function getDate(){
+        return $this->date;
+    }
 
+    function setDate($date){
+        $this->date = $date;
+    }
+    function setPrice($price){
+        $this->price = $price;
+    }
     function setAppliId($appliId){
         $this->appliId = $appliId;
     }
     function setFreeId($freeId){
         $this->freeId = $freeId;
     }
-    function setJobpliId($jobpliId){
-        $this->jobpliId = $jobpliId;
+    function setJobId($jobId){
+        $this->jobId = $jobId;
     }
     function setState($state){
         $this->state = $state;

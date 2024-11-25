@@ -7,6 +7,7 @@ if (isset($_GET['logout'])) {
     header("Location: index.php");
     exit(); 
 }
+$userdb = new UserDatabase();
 
 $currentParams = $_GET;
 unset($currentParams['condition']);
@@ -66,14 +67,12 @@ unset($currentParams['condition']);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function searchRedirect(event) {
-        event.preventDefault(); // Ngừng việc reload trang
-        const searchValue = document.getElementById("textt").value; // Lấy giá trị từ ô input
+        event.preventDefault(); 
+        const searchValue = document.getElementById("textt").value; 
         
-        // Tạo URL mới, giữ lại các tham số cũ và thêm tham số `condition`
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.set('condition', searchValue); // Thêm hoặc thay thế tham số `condition`
+        urlParams.set('condition', searchValue); 
         
-        // Cập nhật URL mới mà không reload trang
         window.location.search = urlParams.toString();
     }
 </script>

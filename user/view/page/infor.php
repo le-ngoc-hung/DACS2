@@ -11,14 +11,15 @@
 <body>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-2" style="border:1px solid black;">
+            <div class="col-12 col-md-3 sidebar">
+                <h5>Menu</h5>
                 <ul>
                     <li><a href="?lay=infor&lay2=editinfor">Cập nhật thông tin</a></li>
                     <li><a href="?lay=infor&lay2=postchoice">Dịch vụ được mua</a></li>
                     <li><a href="?lay=infor&lay2=jobchoice">Dự án đã nhận</a></li>
                 </ul>
             </div>
-            <div class="col-10"  style="border:1px solid black;">
+            <div class="col-12 col-md-9 content">
                 <div class="container">
                     <div class="row">
                         <?php

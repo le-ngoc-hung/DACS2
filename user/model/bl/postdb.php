@@ -57,6 +57,7 @@ class PostDatabase extends Database{
         $params = [
             "search" => '%' . $search . '%',
         ];
+        $total = 0;
         $result = self::db_get_row($sql, $params);
         if ($result){
             $total = $result['total'];

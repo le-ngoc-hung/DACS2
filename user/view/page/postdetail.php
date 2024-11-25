@@ -15,6 +15,10 @@
             <div class="col-10">
                 <div class="container detail">
                     <?php
+                        $user = new User();
+                        if ($myId!==null){
+                            $user = $userdb->getById($myId);
+                        }
                         $id = Helper::input_value('id');
                         $postdb = new PostDatabase();
                         $post = new Post();
@@ -41,10 +45,10 @@
                         <div class="col-6">
                             <h2 class="text-success"><?php echo $post->getTitle() ?></h2> 
                             <div class="d-flex flex-row mt-3 mb-3">
-                                <a href="">
-                                    <img src="<?php echo Helper::get_url('user/public/img/') . $freelancer->getImg() ?>" alt="aaaa" height="30px" class="avt">
-                                </a>
-                                <a href=""><h6> &ensp; <?php echo $freelancer->getName() ?></h6></a>
+                            <a href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $freelancer->getFreeId() ?>">
+                                <img src="<?php echo Helper::get_url('user/public/img/') . $freelancer->getImg() ?>" alt="avatar" class="avt" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;">
+                            </a>
+                                <a href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $freelancer->getFreeId() ?>"><h6> &ensp; <?php echo $freelancer->getName() ?></h6></a>
                                 <div class="line"></div>
                                 <p class="text-muted" id="buy"><?php echo "Lượt mua: " . $buy ?></p>
                                 <div class="line"></div>
@@ -56,10 +60,22 @@
                         <div class="col-6">
                             <img src="<?php echo Helper::get_url('user/public/img/') . $post->getImg() ?>" width="495px" alt="">
                             <hr>
+                            <?php
+                            if ($myId==null){
+                            ?>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-success">Mua dịch vụ</button>
+                                <a href="<?php echo Helper::get_url('user/index.php/?lay=login') ?>" class="btn btn-lg btn-success text-white">Mua dịch vụ</a>
                             </div>
                             <hr>
+                            <?php
+                            } else if ($user->getRole()=='nha_tuyen_dung'){
+                            ?>
+                            <div class="d-flex justify-content-center">
+                                <a href="<?php echo Helper::get_url('user/index.php/?lay=buy&id=') . $id ?>" class="btn btn-lg btn-success text-white">Mua dịch vụ</a>
+                            </div>
+                            <?php
+                            }
+                            ?>
                         </div>
                         <div class="col-6">
                             <div class="d-flex justify-content-between align-items-center">

@@ -46,7 +46,7 @@ $jobdb = new JobDatabase();
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Thống kê Số lượng người dùng',  // Tiêu đề của biểu đồ
+                                    text: 'Thống kê Số lượng người dùng',
                                     font: {
                                         size: 20
                                     },
@@ -90,7 +90,7 @@ $jobdb = new JobDatabase();
                                             }
                                         }
                                         ?>
-                                    ], // Dữ liệu giả
+                                    ],
                                     borderColor: 'rgba(54, 162, 235, 1)',
                                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                                     fill: true,
@@ -108,7 +108,7 @@ $jobdb = new JobDatabase();
                                             }
                                         }
                                         ?>
-                                    ], // Dữ liệu giả
+                                    ], 
                                     borderColor: 'rgba(255, 99, 132, 1)',
                                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                     fill: true,

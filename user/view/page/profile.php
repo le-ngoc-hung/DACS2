@@ -14,6 +14,7 @@ ob_start();
     $freelancer = new Freelancer();
     $freedb = new FreelancerDatabase();
 
+    $companydb = new CompanyDatabase();
     $user = new User();
     $userdb = new UserDatabase();
 
@@ -65,7 +66,9 @@ ob_start();
             <div class="col-1"></div>
             <div class="col-10 prof">
                 <div class="d-flex flex-row mt-3 px-4">
-                    <a href=""><img src="<?php echo Helper::get_url('user/public/img/')  . $freelancer->getImg() ?>" alt="aaaa" height="60px" class="avt"></a>
+                  <a href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $freelancer->getFreeId() ?>">
+                    <img src="<?php echo Helper::get_url('user/public/img/') . $freelancer->getImg() ?>" alt="avatar" class="avt" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                  </a>
                     <div class="d-flex flex-column">
                         <h5 class="name"> &ensp; <?php echo $freelancer->getName() ?></h5>
                     </div>
@@ -151,7 +154,7 @@ ob_start();
                 <div class="review-detail">
                   <b>Đánh giá chi tiết</b>
                   <?php
-                    $companydb = new CompanyDatabase();
+                    
                     foreach ($rateDetail as $rate){
                       $com = $companydb->getById($rate->getEmployId());
                   ?>
@@ -246,10 +249,19 @@ ob_start();
                             </div>
                           </div>
                         </div>
+                        <?php
+                        $freelancer = $freedb->getById($id);
+                        $userProfile = $userdb->getById($freelancer->getUserId());
+                        $user = $userdb->getById($myId);
+                        if ($userProfile->getUserId()==$user->getUserId()){
+                        ?>
                         <div class="col-1">
                           <a href="<?php echo "?lay=editpost&id=" . $post->getPostId() ?>" style="color: brown;"><i class="bi bi-pen-fill"></i></a> <br> <br>
                           <a href="<?php echo "?lay=deletepost&id=" . $post->getPostId() ?>" style="color: red;"><i class="bi bi-trash3-fill"></i></a>
                         </div>
+                        <?php
+                        }
+                        ?>
                       </div>
                       <hr style="width: 100%;">
                     <?php

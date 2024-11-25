@@ -88,10 +88,10 @@ if (Helper::is_submit('add')) {
     $post = new Post();
     $postdb = new PostDatabase();
     $speName = Helper::input_value('speName');
-
+    $free = $freedb->getByUserId($myId);
     $spe = $spedb->getBySpeName($speName);
     
-    $post->setFreeId(2);
+    $post->setFreeId($free->getFreeId());
     $post->setTitle(Helper::input_value('title'));
     $post->setContent(Helper::input_value('content'));
     $post->setPrice(Helper::input_value('price'));
@@ -112,7 +112,7 @@ if (Helper::is_submit('add')) {
 
     $postdb->addPost($post);
 
-    Helper::redirect(".");
+    Helper::redirect("?lay=post");
 }
 ob_end_flush();
 ?>

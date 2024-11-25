@@ -37,6 +37,21 @@
             case "infor":
                 include_once 'view/page/infor.php';
                 break;
+            case "profilecompany":
+                include_once 'view/page/profilecompany.php';
+                break;
+            case "job":
+                include_once 'view/page/seemorejob.php';
+                break;
+            case "jobdetail":
+                include_once 'view/page/jobdetail.php';
+                break;
+            case "addjob":
+                include_once 'view/page/addjob.php';
+                break;
+            case "inforcompany":
+                include_once 'view/page/inforcompany.php';
+                break;
         }
     }
     else{

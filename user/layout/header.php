@@ -1,3 +1,25 @@
+<?php
+$userdb = new UserDatabase();
+
+if ($myId !== null) {
+    $user = $userdb->getById($myId);
+} 
+
+$freedb = new FreelancerDatabase();
+$companydb = new CompanyDatabase();
+if (isset($_GET['logout'])) {
+    session_unset();
+    
+    session_destroy();
+    
+    header("Location: index.php");
+    exit(); 
+}
+
+$currentParams = $_GET;
+unset($currentParams['condition']);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,21 +56,69 @@
                         Khám phá dịch vụ
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Dịch vụ từ Freelancer</a></li>
-                        <li><a class="dropdown-item" href="#">Dự án tìm Freelancer</a></li>
+                        <li><a class="dropdown-item" href="?lay=post">Dịch vụ từ Freelancer</a></li>
+                        <li><a class="dropdown-item" href="?lay=job">Dự án tìm Freelancer</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-2 log">
+                <?php
+                if ($myId == null) {
+                ?>
                 <a href="<?php echo "?lay=intro" ?>">Trở thành Freelancer</a>
-                <a href="<?php echo "?lay=intro" ?>">Trở thành Freelancer</a>
+                <?php
+                } else if ($user->getRole() == 'nguoi_tim_viec') {
+                ?>
+                <a href="<?php echo "?lay=infor" ?>">Thông tin Freelancer</a>
+                <?php
+                } else {
+                ?>
+                <a href="<?php echo "?lay=inforcompany" ?>">Thông tin Nhà tuyển dụng</a>
+                <?php
+                }
+                ?>
             </div>
-            <div class="col-md-1 mt-1">
-            </div>
+            <div class="col-md-1 mt-1"></div>
             <div class="col-md-2 log">
+                <?php
+                if ($myId == null) {
+                ?>
                 <a href="<?php echo "?lay=login" ?>">Đăng nhập</a>
                 <div class="line"></div>
                 <a href="<?php echo "?lay=register" ?>">Đăng kí</a>
+                <?php
+                } else if ($user->getRole() == 'nguoi_tim_viec') {
+                    $free = $freedb->getByUserId($myId);
+                    $avatar = Helper::get_url('user/public/img/') . $free->getImg(); 
+                    $userName = $user->getUserName(); 
+                ?>
+                <div class="dropdown">
+                    <span class="dropdown-toggle w-100" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="<?php echo $avatar ?>" alt="" class="avata" width=35px; height=35px;> <span class="text-white"><?php echo $userName ?></span>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $myId ?>">Trang cá nhân &ensp;</a></li>
+                        <li><a class="dropdown-item" href="?logout=true">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+                <?php
+                } else {
+                    $com = $companydb->getByUserId($myId);
+                    $avatar = Helper::get_url('user/public/img/') . $com->getImg(); 
+                    $userName = $user->getUserName(); 
+                ?>
+                <div class="dropdown">
+                    <span class="dropdown-toggle w-100" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="<?php echo $avatar ?>" alt="" class="avata" width=35px; height=35px;> <span class="text-white"><?php echo $userName ?></span>
+                    </span>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profilecompany&id=') . $myId ?>">Trang cá nhân &ensp;</a></li>
+                        <li><a class="dropdown-item" href="?logout=true">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
+                    </ul>
+                </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>

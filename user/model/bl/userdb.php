@@ -186,6 +186,43 @@ class UserDatabase extends Database{
         return null; // Đăng nhập thất bại
     }
     
+    function deleteUserById($userId) {
+        $userId = (int)$userId;
+        
+        $sql = "DELETE FROM nguoi_dung WHERE ma_nguoi_dung = :userId";
+        
+        $params = [
+            "userId" => $userId
+        ];
+
+        $result = self::db_execute($sql, $params);
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getByUsername($username) {
+        $sql = "SELECT * FROM nguoi_dung WHERE ten_dang_nhap = :username";
+        
+        $params = ['username' => $username];
+        
+        $result = self::db_get_row($sql, $params);
+        if ($result) {
+            $user = new User();
+            $user->setUserId($result['ma_nguoi_dung']);
+            $user->setUserName($result['ten_dang_nhap']);
+            $user->setPass($result['mat_khau']);
+            $user->setEmail($result['email']);
+            $user->setRole($result['vai_tro']);
+            $user->setCreateDate($result['ngay_tao']);
+            $user->setUpdateDate($result['ngay_cap_nhat']);
+            return $user; 
+        }
+        return null; 
+    }
     
 }
 ?>

@@ -1,3 +1,6 @@
+<?php
+ob_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,8 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/listuser.css') ?>">
+    <link rel="stylesheet" href="<?php echo Helper::get_url('user/public/css/listuserstyle.css') ?>">
     <title>Document</title>
+    <style>
+        
+    </style>
 </head>
 <body>
     <div class="d-flex justify-content-center align-items-center">
@@ -66,7 +72,7 @@
                     $company = new Company();
                     $companydb = new CompanyDatabase();
 
-                    $userdb = new UserDatabase();
+                    
                     $user = new User();
                     $limit = 12;
                     if (!empty(Helper::input_value('page'))){
@@ -148,8 +154,9 @@
                     </div>
                 </td>
                 <td>
-                    <a href="" class="text-danger"><i class="bi bi-ban-fill"></i></a> <br> <br>
-                    <a href="" class="text-danger"><i class="bi bi-trash3-fill"></i></a>
+                    <a href="#" class="text-danger" onclick="showDeleteForm('<?php echo $user->getUserName(); ?>')">
+                        <i class="bi bi-trash3-fill"></i>
+                    </a>
                 </td>
             </tr>
                 <?php
@@ -186,10 +193,48 @@
                     </li>
                 </ul>
             </nav>
-            <?php
-            }
-            ?>
+            <?php } ?>
         </div>
     </div>
+
+    <div id="deleteOverlay" class="overlay">
+        <div class="delete-form">
+            <h4>Xác nhận xóa người dùng <span id="deleteUserName"></span>?</h4>
+            <form method="POST" action="">
+                <input type="hidden" name="username" id="usernameToDelete">
+                <button type="submit" class="btn btn-danger">Xóa</button>
+                <input type="hidden" name="action" value="deleteuser">
+                <button type="button" class="btn btn-secondary" onclick="closeDeleteForm()">Hủy</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showDeleteForm(userName) {
+            document.getElementById('deleteUserName').innerText = userName;
+            document.getElementById('usernameToDelete').value = userName;
+            document.getElementById('deleteOverlay').style.display = 'flex';
+        }
+        function closeDeleteForm() {
+            document.getElementById('deleteOverlay').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
+<?php
+if (Helper::is_submit('deleteuser')){
+    $userdelete = $userdb->getByUserName(Helper::input_value('username'));
+    $userdb->deleteUserById($userdelete->getUserId());
+    $page = isset($_GET['page']) ? $_GET['page'] : null;
+
+    $url = Helper::get_url('user/index.php/?lay=listuser');
+
+    if ($page) {
+        $url .= '&page=' . $page;
+    }
+    header('Location: ' . $url);
+
+    exit();
+}
+ob_end_flush();
+?>

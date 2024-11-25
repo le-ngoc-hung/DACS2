@@ -1,3 +1,8 @@
+<?php
+$appdb = new ApplicantDatabase();
+$list = $appdb->getByFreeId($myId);
+$jobdb = new JobDatabase();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,39 +21,36 @@
         <div class="row mt-4">
             <div class="col-1"></div>
             <div class="col-10">
-                <!-- Công việc 1 -->
+                <?php
+                foreach($list as $appli){
+                    $job = $jobdb->display_by_id($appli->getJobId()); 
+                ?>
                 <div class="card mb-3">
                     <div class="card-body d-flex justify-content-between align-items-center">
                         <div>
-                            <h5 class="card-title">Công việc: Thiết kế giao diện website</h5>
-                            <p class="card-text">Mô tả: Thiết kế giao diện cho website bán hàng, đảm bảo tính thẩm mỹ và dễ sử dụng.</p>
-                            <p class="card-text"><strong>Tình trạng:</strong> Đang xử lý</p>
+                            <h5 class="card-title"><b>Công việc:</b> <?php echo $job->getTieuDeCongViec() ?></h5>
+                            <p class="card-text">Mô tả: <?php echo $job->getMoTaCongViec() ?></p>
+                            <p class="card-text"><strong>Tình trạng:</strong> 
+                            <?php if ($appli->getState() == 'Hoàn thành') {
+                                echo 'Hoàn thành';
+                            } else {
+                                echo 'Đang thực hiện';
+                            } ?>
+                            </p>
                         </div>
-                        <button class="btn btn-success">Hoàn thành</button>
+                        <button class="btn <?php if ($appli->getState() == 'Hoàn thành') {echo 'btn-secondary'; } else {echo 'btn-success';} ?>" 
+                        <?php if ($appli->getState() == 'Hoàn thành') {
+                                echo 'disabled'; 
+                            }
+                        ?>
+                        >
+                            Hoàn thành
+                        </button>
                     </div>
                 </div>
-                <!-- Công việc 2 -->
-                <div class="card mb-3">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">Công việc: Viết API cho ứng dụng</h5>
-                            <p class="card-text">Mô tả: Tạo các API cần thiết để giao tiếp giữa front-end và back-end.</p>
-                            <p class="card-text"><strong>Tình trạng:</strong> Chưa bắt đầu</p>
-                        </div>
-                        <button class="btn btn-success">Hoàn thành</button>
-                    </div>
-                </div>
-                <!-- Công việc 3 -->
-                <div class="card mb-3">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title">Công việc: Kiểm thử hệ thống</h5>
-                            <p class="card-text">Mô tả: Thực hiện kiểm thử để đảm bảo hệ thống hoạt động đúng và ổn định.</p>
-                            <p class="card-text"><strong>Tình trạng:</strong> Đã hoàn thành</p>
-                        </div>
-                        <button class="btn btn-secondary" disabled>Hoàn thành</button>
-                    </div>
-                </div>
+                <?php
+                }
+                ?>
             </div>
             <div class="col-1"></div>
         </div>

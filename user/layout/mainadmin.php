@@ -19,6 +19,12 @@
             case "deletepost":
                 include_once 'view/page/deletepost.php';
                 break;
+            case "editjob":
+                include_once 'view/page/editjob.php';
+                break;
+            case "deletejob":
+                include_once 'view/page/deletejob.php';
+                break;
         }
     }
     else{
