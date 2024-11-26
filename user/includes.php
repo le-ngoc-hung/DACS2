@@ -12,12 +12,12 @@ include_once './model/bl/specialized.php';
 include_once './model/bl/specializeddb.php';
 include_once './model/bl/applicant.php';
 include_once './model/bl/applicantdb.php';
-include_once './model/bl/ratefreelancer.php';
-include_once './model/bl/ratefreelancerdb.php';
 include_once './model/bl/company.php';
 include_once './model/bl/companydb.php';
 include_once './model/bl/employchoice.php';
 include_once './model/bl/employchoicedb.php';
 include_once './model/bl/job.php';
 include_once './model/bl/jobdb.php';
+include_once './model/bl/result.php';
+include_once './model/bl/resultdb.php';
 ?>

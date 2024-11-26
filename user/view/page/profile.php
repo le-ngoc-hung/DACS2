@@ -33,7 +33,7 @@ ob_start();
       $month = $date->format('m');
       $day = $date->format('d');
 
-      $limit = 4;
+      $limit = 3;
       if (!empty(Helper::input_value('pagepost'))){
       $page = (int)Helper::input_value('pagepost');
       }
@@ -46,17 +46,6 @@ ob_start();
 
       $applidb = new ApplicantDatabase();
       $totalPro = $applidb->countByFreeId($id);
-
-      $ratefreedb = new RateFreelancerDatabase();
-      $totalRate = $ratefreedb->countRow($id);
-      $rate1 = $ratefreedb->countByRate($id, 1);
-      $rate2 = $ratefreedb->countByRate($id, 2);
-      $rate3 = $ratefreedb->countByRate($id, 3);
-      $rate4 = $ratefreedb->countByRate($id, 4);
-      $rate5 = $ratefreedb->countByRate($id, 5);
-
-      
-      $rateDetail = $ratefreedb->displayLimit($id, 4, 0);
     }
     ?>
 </head>
@@ -106,85 +95,6 @@ ob_start();
                   ?>
                 </ul>
                 <hr>
-                <?php
-                if ($totalRate>0){
-                ?>
-                <div class="review-container">
-                    <div class="stars text-center fs-3">
-                      <span><?php echo $ratefreedb->getAvgRate($id) ?></span>
-                      <i class="bi bi-star-fill"></i>
-                    </div>
-                    <div class="summary">Dựa trên <?php echo $totalRate ?> nhận xét</div>
-                    <div class="bar-container">
-                      <span>5 sao</span>
-                      <div class="bar">
-                        <div class="bar-filled" style="<?php echo "width: " . ($rate5/$totalRate*100) . "%;" ?>"></div>
-                      </div>
-                      <span><?php echo $rate5 ?></span>
-                    </div>
-                    <div class="bar-container">
-                      <span>4 sao</span>
-                      <div class="bar">
-                        <div class="bar-filled" style="<?php echo "width: " . ($rate4/$totalRate*100) . "%;" ?>"></div>
-                      </div>
-                      <span><?php echo $rate4 ?></span>
-                    </div>
-                    <div class="bar-container">
-                      <span>3 sao</span>
-                      <div class="bar">
-                        <div class="bar-filled" style="<?php echo "width: " . ($rate3/$totalRate*100) . "%;" ?>"></div>
-                      </div>
-                      <span><?php echo $rate3 ?></span>
-                    </div>
-                    <div class="bar-container">
-                      <span>2 sao</span>
-                      <div class="bar">
-                        <div class="bar-filled" style="<?php echo "width: " . ($rate2/$totalRate*100) . "%;" ?>"></div>
-                      </div>
-                      <span><?php echo $rate2 ?></span>
-                    </div>
-                    <div class="bar-container">
-                      <span>1 sao</span>
-                      <div class="bar">
-                        <div class="bar-filled" style="<?php echo "width: " . ($rate1/$totalRate*100) . "%;" ?>"></div>
-                      </div>
-                      <span><?php echo $rate1 ?></span>
-                    </div>
-                </div>
-                <div class="review-detail">
-                  <b>Đánh giá chi tiết</b>
-                  <?php
-                    
-                    foreach ($rateDetail as $rate){
-                      $com = $companydb->getById($rate->getEmployId());
-                  ?>
-                  <div class="aa mt-3">
-                    <div class="re-detail d-flex">
-                      <img src="<?php echo Helper::get_url('user/public/img/')  . $com->getImg() ?>" alt="aaa" height="50px" width="50px" class="avt">
-                      <div class="name-star">
-                        <b><?php echo $com->getName() ?></b>
-                        <div class="stars" style="font-size: 18px;">
-                          <?php
-                            for ($i=1;$i<=$rate->getRate();$i++){
-                          ?>
-                          <i class="bi bi-star-fill"></i>
-                          <?php
-                            }
-                          ?>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="review-text">
-                      <?php echo $rate->getCmt() ?>
-                    </div>
-                  </div>
-                  <?php
-                    }
-                  ?>   
-                </div>
-                <?php
-                }
-                ?>
             </div>
             <div class="col-6 mx-3">
               <div class="profi2">

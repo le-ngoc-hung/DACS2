@@ -99,5 +99,38 @@ class ApplicantDatabase extends Database{
         }
         return $Applis;
     }
+
+    function getById($id){
+        $sql = "SELECT * FROM ung_tuyen WHERE ma_ung_tuyen = :id";
+        $params = [
+            "id" => (int)$id,
+        ];
+        $row = self::db_get_row($sql, $params);
+        if ($row) {
+            $appli = new Applicant();
+            $appli->setAppliId($row['ma_ung_tuyen']);
+            $appli->setFreeId($row['ma_nguoi_tim_viec']);
+            $appli->setJobId($row['ma_cong_viec']);
+            $appli->setState($row['trang_thai_ung_tuyen']);
+            $appli->setAppliDate($row['ngay_ung_tuyen']);
+            $appli->setDesc($row['mo_ta']);
+            $appli->setPrice($row['chao_gia']);
+            $appli->setDate($row['so_ngay_hoan_thanh']);
+            return $appli;
+        }
+        return null; 
+    }
+    
+    function updateApplicationState($appliId, $state) {
+        // Cập nhật trạng thái của đơn ứng tuyển
+        $sql = "UPDATE ung_tuyen SET trang_thai_ung_tuyen = :state WHERE ma_ung_tuyen = :appliId";
+        $params = [
+            "state" => $state,
+            "appliId" => (int)$appliId
+        ];
+
+        // Thực thi câu lệnh SQL
+        return self::db_execute($sql, $params);
+    }
 }
 ?>
