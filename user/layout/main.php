@@ -37,6 +37,9 @@
             case "infor":
                 include_once 'view/page/infor.php';
                 break;
+            case "inforcompany":
+                include_once 'view/page/inforcompany.php';
+                break;
             case "profilecompany":
                 include_once 'view/page/profilecompany.php';
                 break;
@@ -52,9 +55,12 @@
             case "inforcompany":
                 include_once 'view/page/inforcompany.php';
                 break;
+            case "home":
+                include_once 'view/page/first.php';
+                break;
         }
     }
     else{
-        include_once 'view/page/postview.php';
+        include_once 'view/page/first.php';
     }
 ?>

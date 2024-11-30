@@ -119,7 +119,7 @@ class PostDatabase extends Database{
     function orderByLatest($limit, $offset, $search = '') {
         $limit = (int)$limit;
         $offset = (int)$offset;
-        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search ORDER BY ngay_tao LIMIT $limit OFFSET $offset";
+        $sql = "SELECT * FROM bai_dang_ca_nhan WHERE tieu_de LIKE :search ORDER BY ngay_tao DESC LIMIT $limit OFFSET $offset";
         $params = [
             "search" => '%' . $search . '%',
         ];

@@ -162,7 +162,10 @@ ob_start();
                         <?php
                         $freelancer = $freedb->getById($id);
                         $userProfile = $userdb->getById($freelancer->getUserId());
-                        $user = $userdb->getById($myId);
+                        $user = new User();
+                        if (isset($myId)){
+                          $user = $userdb->getById($myId);
+                        }
                         if ($userProfile->getUserId()==$user->getUserId()){
                         ?>
                         <div class="col-1">

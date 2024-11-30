@@ -122,14 +122,12 @@ class ApplicantDatabase extends Database{
     }
     
     function updateApplicationState($appliId, $state) {
-        // Cập nhật trạng thái của đơn ứng tuyển
         $sql = "UPDATE ung_tuyen SET trang_thai_ung_tuyen = :state WHERE ma_ung_tuyen = :appliId";
         $params = [
             "state" => $state,
             "appliId" => (int)$appliId
         ];
 
-        // Thực thi câu lệnh SQL
         return self::db_execute($sql, $params);
     }
 }

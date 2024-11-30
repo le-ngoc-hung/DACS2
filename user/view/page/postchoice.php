@@ -1,6 +1,7 @@
 <?php
+$free = $freedb->getByUserId($myId);
 $choicedb = new EmployChoiceDatabase();
-$list = $choicedb->displayLimit($myId);
+$list = $choicedb->displayLimit($free->getFreeId());
 
 $postdb = new PostDatabase();
 ?>

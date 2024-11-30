@@ -62,8 +62,10 @@ ob_start();
 
                         <div class="thongTinKhachHang">
                             <p>Thông tin khách hàng</p>
-                            <img src="/DACS2/user/public/img/<?php echo $com->getImg()  ?>" width="5%" alt=""> &#160
-                            <span class="tenKhachHang"><?php echo $user->getUserName() ?></span>
+                            <a href="<?php echo Helper::get_url('user/?lay=profilecompany&id=') . $job->getMaNhaTuyenDung() ?>" style="text-decoration: none;">
+                                <img src="/DACS2/user/public/img/<?php echo $com->getImg()  ?>" width="5%" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;"> &#160
+                                <span class="tenKhachHang"><?php echo $user->getUserName() ?></span>
+                            </a>
                         </div>
                         <div class="kiNang">
                             <p><b>Kỹ năng bắt buộc</b></p>
@@ -178,10 +180,9 @@ ob_start();
             </form>
         </div>
     </div>
-    <div class="overlay" id="formUpdate">
+    <div class="overlay mt-4" id="formUpdate">
         <div class="form-container">
             <span class="close-button" onclick="closeForm1()">×</span>
-            <h2>Chào Giá Dự Án</h2>
             <form action="" method="POST" style="max-width: 600px; margin: auto;">
                 <div class="mb-3">
                     <label for="title" class="form-label">Tiêu đề</label>

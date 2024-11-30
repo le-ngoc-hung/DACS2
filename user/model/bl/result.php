@@ -2,7 +2,7 @@
 class Result {
     // Thuộc tính
     private $resultId;
-    private $jobId;
+    private $appId;
     private $desc;
     private $file;
 
@@ -18,12 +18,12 @@ class Result {
         $this->resultId = $resultId;
     }
 
-    public function getJobId() {
-        return $this->jobId;
+    public function getAppId() {
+        return $this->appId;
     }
 
-    public function setJobId($jobId) {
-        $this->jobId = $jobId;
+    public function setAppId($appId) {
+        $this->appId = $appId;
     }
 
     public function getDesc() {

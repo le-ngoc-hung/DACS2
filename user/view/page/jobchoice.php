@@ -1,8 +1,9 @@
 <?php
 ob_start();
+$freelancer = $freedb->getByUserId($myId);
 $resultdb = new ResultDatabase();
 $appdb = new ApplicantDatabase();
-$list = $appdb->getByFreeId($myId);
+$list = $appdb->getByFreeId($freelancer->getFreeId());
 $jobdb = new JobDatabase();
 ?>
 <!DOCTYPE html>
@@ -84,10 +85,8 @@ $jobdb = new JobDatabase();
 if (Helper::is_submit('submitResult')) {
    
     $appliId = Helper::input_value('appliId');
-    var_dump($appliId);
     $result = new Result();
-    $applii = $appdb->getById($appliId);
-    $result->setJobId($applii->getJobId()); 
+    $result->setAppId($appliId); 
     $result->setDesc(Helper::input_value('resultDescription'));
     $result->setFile($_FILES['attachment']['name']);
 

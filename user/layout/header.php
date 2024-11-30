@@ -18,7 +18,6 @@ if (isset($_GET['logout'])) {
 
 $currentParams = $_GET;
 unset($currentParams['condition']);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,7 @@ unset($currentParams['condition']);
 </head>
 <body>
 <header>
-    <div class="container-fluid" id="header">
+    <div class="container-fluid" id="header" style="position: fixed; top: 0; width: 100%; z-index: 1000;">
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-1">
@@ -97,7 +96,7 @@ unset($currentParams['condition']);
                         <img src="<?php echo $avatar ?>" alt="" class="avata" width=35px; height=35px;> <span class="text-white"><?php echo $userName ?></span>
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $myId ?>">Trang cá nhân &ensp;</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profile&id=') . $free->getFreeId() ?>">Trang cá nhân &ensp;</a></li>
                         <li><a class="dropdown-item" href="?logout=true">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
                     </ul>
                 </div>
@@ -112,7 +111,7 @@ unset($currentParams['condition']);
                         <img src="<?php echo $avatar ?>" alt="" class="avata" width=35px; height=35px;> <span class="text-white"><?php echo $userName ?></span>
                     </span>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profilecompany&id=') . $myId ?>">Trang cá nhân &ensp;</a></li>
+                        <li><a class="dropdown-item" href="<?php echo Helper::get_url('user/index.php/?lay=profilecompany&id=') . $com->getComId() ?>">Trang cá nhân &ensp;</a></li>
                         <li><a class="dropdown-item" href="?logout=true">Đăng xuất &ensp;<i class="bi bi-box-arrow-right"></i></a></li>
                     </ul>
                 </div>

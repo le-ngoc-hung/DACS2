@@ -96,7 +96,7 @@ $freelancer = $freedb->getByUserId($myId);
 <?php
 if (isset($_POST['action']) && $_POST['action'] == 'editinfor') {
     $free = new Freelancer();
-    $free->setFreeId($myId);
+    $free->setFreeId($freelancer->getFreeId());
     $free->setName(Helper::input_value('name'));
     $free->setFacebook(Helper::input_value('facebook'));
     $free->setAddress(Helper::input_value('address'));
@@ -121,6 +121,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'editinfor') {
     } else {
         $free->setImg($freelancer->getImg());
     }
+    var_dump($free);
     $updated = $freedb->editFreelancer($free);
 
     if ($updated) {

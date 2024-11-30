@@ -50,9 +50,7 @@ $user = $userdb->getById($myId);
         <div class="container">
             <div class="row mt-3" id="thongTinSn">
                 <div class="col-8 left">
-                    
                     <a href="#tenNganh" class="yellow"><?php echo $speName ?></a>
-                    
                     <br>
                     <a href="#TieuDe" class="tieuDe yellow"><?php echo $job->getTieuDeCongViec() ?></a><br>
                     <span class=" bi bi-pin-angle-fill chaoGia white">
@@ -63,9 +61,7 @@ $user = $userdb->getById($myId);
                     </span>
                     <p class="moTa grey">
                     <?php echo $job->getMoTaCongViec() ?>
-                    </p> 
-                    
-                    
+                    </p>
                 </div>
                 <div class="col-4 right">
                     <span style="color: white">Trạng thái: <?php echo $job->getTrangThai() ?></span>
