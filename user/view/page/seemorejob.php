@@ -64,7 +64,7 @@ $user = $userdb->getById($myId);
                     </p>
                 </div>
                 <div class="col-4 right">
-                    <span style="color: white">Trạng thái: <?php echo $job->getTrangThai() ?></span>
+                    <span class="<?php if($job->getTrangThai()=='Đã đóng'){echo 'text-danger';}else{echo 'text-white';} ?>">Trạng thái: <?php echo $job->getTrangThai() ?></span>
                     <div class="Gia"><?php echo $salary ?>.000 VNĐ</div>
                     <a href="<?php echo Helper::get_url('user/index.php/?lay=jobdetail&id=') .  $job->getMaCongViec() ?>" id="changeContent" class="chaoGia">Chào giá cho dự án</a>
                 </div>

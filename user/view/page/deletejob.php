@@ -59,6 +59,7 @@ $job = $jobdb->display_by_id(Helper::input_value('id'));
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                    <a href="?lay=jobadmin" class="btn btn-secondary">Hủy</a>
                     <input type="hidden" name="action" value="deletejob">
                 </div>
             </form>

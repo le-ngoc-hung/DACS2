@@ -45,7 +45,7 @@ class ApplicantDatabase extends Database{
         return $total;
     }
     function display_by_idJob($id){
-        $sql = "SELECT * FROM ung_tuyen WHERE ma_cong_viec = :id";
+        $sql = "SELECT * FROM ung_tuyen WHERE ma_cong_viec = :id AND trang_thai_ung_tuyen = 'Đang chờ'";
         $params = [
             "id" => (int)$id,
         ];

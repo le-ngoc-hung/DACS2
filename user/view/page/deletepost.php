@@ -1,5 +1,6 @@
 <?php
 ob_start(); 
+$user = $userdb->getById($myId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,6 +77,12 @@ ob_start();
                             <div class="row text-center mt-4 mb-5">
                                 <div class="col-12">
                                     <button class="btn btn-danger btn-lg">Xác nhận xóa</button>
+                                    <a href="<?php if ($user->getRole()=='nguoi_tim_viec'){
+                                        echo '?lay=profile&id=' . $post->getFreeId();
+                                    }
+                                    else{
+                                        echo '?lay=postadmin&';
+                                    } ?>" class="btn btn-secondary btn-lg">Hủy</a>
                                     <input type="hidden" name="action" value="delete">
                                 </div>
                             </div>
@@ -91,12 +98,11 @@ ob_start();
 <?php
 if (Helper::is_submit('delete')) {
     $postdb->deletePost($post->getPostId());
-    $user = $userdb->getById($myId);
     if ($user->getRole()=='nguoi_tim_viec'){
         Helper::redirect('?lay=profile&id=' . $post->getFreeId());
     }
     else{
-        Helper::redirect('?lay=postadmin&');
+        Helper::redirect('?lay=postadmin');
     }
 }
 ob_end_flush();

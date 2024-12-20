@@ -1,7 +1,7 @@
 #background-image-div {
     background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
       url("../img/trangchu.png");
-    background-size: cover; /*không giới hạn*/
+    background-size: cover;
     background-position: center;
     height: 800px;
   }

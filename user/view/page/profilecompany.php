@@ -13,6 +13,7 @@ $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="<?php echo Helper::get_url('user/public/js/profilecom.js') ?>"></script>
     <title>Company Profile</title>
 </head>
 <body>
@@ -46,7 +47,7 @@ $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
                                 <?php
                                 if ($company1!==null && $company1->getComId()==$id){
                                 ?>
-                                <a href="" class="btn btn-danger">Xóa công việc</a>
+                                <button class="btn btn-danger" onclick="showConfirmForm('<?php echo $job->getMaCongViec(); ?>')">Xóa công việc</button>
                                 <?php
                                 }
                                 ?>
@@ -62,7 +63,28 @@ $listJob = $jobdb->GET_CVLimitByCompanyId($company->getComId());
         <div class="col-1"></div>
     </div>
 </div>
-
-
+<div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+<div id="confirmDeleteForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; background: white; padding: 20px; border-radius: 10px; border: 1px solid black">
+    <form action="" method="POST" class="text-center">
+        <h4>Bạn có chắc chắn muốn xóa công việc này?</h4>
+        <input type="hidden" name="jobId" id="jobId" value="">
+        <input type="hidden" name="action" value="deletejob">
+        <button type="submit" name="delete_room" class="btn btn-danger mt-3">Xóa</button>
+        <button type="button" onclick="hideConfirmForm()" class="btn btn-secondary mt-3">Hủy</button>
+    </form>
+</div>
 </body>
 </html>
+<?php
+if (Helper::is_submit('deletejob')){
+    $jobId = Helper::input_value('jobId');
+    if ($jobId > 0) {
+        $result = $jobdb->deleteJob($jobId);
+        if ($result) {
+            echo "<script>alert('Công việc đã được xóa thành công!'); window.location.href = '?lay=profilecompany&id=$id';</script>";
+        } else {
+            echo "<script>alert('Có lỗi xảy ra khi xóa công việc!'); window.location.href = '?lay=profilecompany&id=$id';</script>";
+        }
+    }
+}
+?>

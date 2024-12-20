@@ -35,7 +35,6 @@ $job = $jobdb->display_by_id(Helper::input_value('id'));
                     <label for="status" class="form-label">Trạng thái</label>
                     <select id="status" name="statusUpdate" class="form-select" required>
                         <option value="Đang tuyển" <?php echo $job->getTrangThai() === "Đang tuyển" ? "selected" : ""; ?>>Đang tuyển</option>
-                        <option value="Đã hoàn thành" <?php echo $job->getTrangThai() === "Đã hoàn thành" ? "selected" : ""; ?>>Đã hoàn thành</option>
                         <option value="Đã đóng" <?php echo $job->getTrangThai() === "Đã đóng" ? "selected" : ""; ?>>Đã đóng</option>
                     </select>
                 </div>

@@ -39,40 +39,45 @@ ob_start();
                     <div class="col-md-8">  
                         <div class="hearChiTietDuAn">
                             <span>Chi tiết dự án</span>
+                            <?php
+                            if ($job->getTrangThai()=='Đã đóng'){
+                            ?>
+                            <span class="btn btn-danger">Công việc tạm thời không tuyển người</span>
                             <?php   
-                            if ($user1==null){
+                            } else if ($user1==null){
                             ?>
                             <a href="?lay=login" class="btn text-dark" style="background-color:yellow;">Chào giá cho dự án</a>
                             <?php
                             } else if ($user1->getRole()=='nguoi_tim_viec'){
                             ?>
-                            <btn class="btn text-dark" style="background-color:yellow;" onclick="openForm()">Chào giá cho dự án</btn>
+                            <span class="btn text-dark" style="background-color:yellow;" onclick="openForm()">Chào giá cho dự án</span>
                             <?php
                             } else if ($user->getUserId() == $user1->getUserId()){
                             ?>
-                            <btn class="btn btn-success" onclick="openForm1()">Cập nhật thông tin dự án</btn>
+                            <span class="btn btn-success" onclick="openForm1()">Cập nhật thông tin dự án</span>
                             <?php
                             }
                             ?>
-                        </div>
-                        <div class="moTaDuAn">
-                            <p><b>Mô tả</b></p>
+                        </div> <br>
+                        <div class="moTaDuAn px-2">
+                            <h4><b>Mô tả</b></h4>
                             <p class="noiDungMoTa"><?php echo $job->getMoTaCongViec() ?></p>   
                         </div>
-
-                        <div class="thongTinKhachHang">
-                            <p>Thông tin khách hàng</p>
-                            <a href="<?php echo Helper::get_url('user/?lay=profilecompany&id=') . $job->getMaNhaTuyenDung() ?>" style="text-decoration: none;">
-                                <img src="/DACS2/user/public/img/<?php echo $com->getImg()  ?>" width="5%" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover;"> &#160
-                                <span class="tenKhachHang"><?php echo $user->getUserName() ?></span>
-                            </a>
-                        </div>
-                        <div class="kiNang">
+                        <div class="kiNang px-2">
                             <p><b>Kỹ năng bắt buộc</b></p>
                             <div class="container-TAG">
                                 <span><?php echo $job->getKyNangBatBuoc() ?></span>
                             </div>
                         </div>
+                            <hr>
+                        <div class="thongTinKhachHang px-2">
+                            <p>Thông tin khách hàng</p>
+                            <a href="<?php echo Helper::get_url('user/?lay=profilecompany&id=') . $job->getMaNhaTuyenDung() ?>" style="text-decoration: none;">
+                                <img src="/DACS2/user/public/img/<?php echo $com->getImg()  ?>" width="5%" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; margin-top:10px;"> &#160
+                                <span class="tenKhachHang"><?php echo $user->getUserName() ?></span>
+                            </a>
+                        </div>
+                        
                     </div>
                     <div class="col-md-4" id="tomTatDuAn">
                         <table class="table table-striped" style=" margin-top:10px">
@@ -84,7 +89,7 @@ ob_start();
                             <tbody>
                                 <tr>
                                     <td>Ngân sách</td>
-                                    <td><?php echo $luong ?>.000 VNĐ</td>
+                                    <td><?php echo $luong ?> VND</td>
                                 </tr>
                                 <tr>
                                     <td>Chào giá</td>
@@ -132,13 +137,29 @@ ob_start();
                         <?php echo $appli->getDesc() ?>
                     </div>
                 </div>
-
                 <div class="row" id="ngay_gio_chao_gia">
-                    <div class="col-10"></div>
-                    <div class="col-2">
+                    <div class="col-9"></div>
+                    <div class="col-3 px-4">
                         <span class="bi bi-alarm"><?php echo $appli->getAppliDate() ?></span>                        
                     </div>
                 </div>
+                <?php
+                if ($myId === $com->getUserId()) {
+                ?>
+                    <form action="" method="post">
+                        <div class="row">
+                            <div class="col-6 text-end">
+                                <button class="btn btn-success" name="action" value="yes">Chấp nhận</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-danger" name="action" value="no">&ensp; Từ chối &ensp;</button>
+                            </div>
+                        </div>
+                        <input type="hidden" name="idApplicant" value="<?php echo $appli->getAppliId(); ?>">
+                    </form>
+                <?php
+                }
+                ?>
             </div>
             <?php
                 }
@@ -200,7 +221,6 @@ ob_start();
                     <label for="status" class="form-label">Trạng thái</label>
                     <select id="status" name="statusUpdate" class="form-select" required>
                         <option value="Đang tuyển" <?php echo $job->getTrangThai() === "Đang tuyển" ? "selected" : ""; ?>>Đang tuyển</option>
-                        <option value="Đã hoàn thành" <?php echo $job->getTrangThai() === "Đã hoàn thành" ? "selected" : ""; ?>>Đã hoàn thành</option>
                         <option value="Đã đóng" <?php echo $job->getTrangThai() === "Đã đóng" ? "selected" : ""; ?>>Đã đóng</option>
                     </select>
                 </div>
@@ -260,5 +280,18 @@ if (Helper::is_submit('editjob')){
     header("Location: " . $_SERVER['REQUEST_URI']);
     exit;
 }
+if (Helper::is_submit('yes') || Helper::is_submit('no')) {
+    $idApp = Helper::input_value('idApplicant');
+    $action = Helper::input_value('action'); 
+
+    if ($action === 'yes') {
+        $applidb->updateApplicationState($idApp, "Chấp nhận");
+    } elseif ($action === 'no') {
+        $applidb->updateApplicationState($idApp, "Từ chối");
+    }
+
+    echo "<script>window.location.href = '?lay=jobdetail&id=$id';</script>";
+}
+
 ob_end_flush();
 ?>
