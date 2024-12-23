@@ -3,7 +3,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-include_once 'includes.php';  // Bao gồm tất cả các file cần thiết
+include_once 'includes.php';
 
 $db = new Database();
 

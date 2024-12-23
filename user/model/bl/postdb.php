@@ -350,9 +350,10 @@ class PostDatabase extends Database{
         }
     }
 
-    function countByMonth($month){
+    function countByMonth($month, $year){
         $month = (int)$month;
-        $sql = "SELECT count(*) as total FROM bai_dang_ca_nhan WHERE month(ngay_tao) = $month";
+        $year = (int)$year;
+        $sql = "SELECT count(*) as total FROM bai_dang_ca_nhan WHERE month(ngay_tao) = $month AND year(ngay_tao) = $year";
         $result = self::db_get_row($sql);
         $total = 0;
         if ($result){

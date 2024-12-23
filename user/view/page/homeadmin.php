@@ -2,6 +2,11 @@
 $userdb = new UserDatabase();
 $postdb = new PostDatabase();
 $jobdb = new JobDatabase();
+$year = (int)date('Y');
+$year1 = Helper::input_value('year');
+if (!empty($year1)){
+    $year = $year1;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,6 +77,18 @@ $jobdb = new JobDatabase();
             </div>
             <div class="col-5 p-3">
             <canvas id="myLineChart" width="450" height="450"></canvas>
+            <form method="GET" class="mb-2 mt-2 text-center">
+                <label for="yearSelect">Chọn năm:</label>
+                <select id="yearSelect" name="year" onchange="this.form.submit()">
+                    <?php
+                    $currentYear = date('Y');
+                    for ($year2 = $currentYear; $year2 >= $currentYear - 5; $year2--) { 
+                        $selected = isset($_GET['year']) && $_GET['year'] == $year2 ? 'selected' : '';
+                        echo "<option value='$year2' $selected>$year2</option>";
+                    }
+                    ?>
+                </select>
+            </form>
                 <script>
                     var ctx = document.getElementById('myLineChart').getContext('2d');
                     var myLineChart = new Chart(ctx, {
@@ -84,7 +101,7 @@ $jobdb = new JobDatabase();
                                     data: [
                                         <?php 
                                         for($i=1;$i<=12;$i++){
-                                            echo $postdb->countByMonth($i);
+                                            echo $postdb->countByMonth($i, $year);
                                             if ($i!=12){
                                                 echo ",";
                                             }
@@ -102,7 +119,7 @@ $jobdb = new JobDatabase();
                                     data: [
                                         <?php 
                                         for($i=1;$i<=12;$i++){
-                                            echo $jobdb->countByMonth($i);
+                                            echo $jobdb->countByMonth($i, $year);
                                             if ($i!=12){
                                                 echo ",";
                                             }
@@ -122,7 +139,7 @@ $jobdb = new JobDatabase();
                             plugins: {
                                 title: {
                                     display: true,
-                                    text: 'Thống kê số bài đăng và công việc theo từng tháng',
+                                    text: 'Thống kê số bài đăng và công việc theo từng tháng của năm <?php echo !empty($year1) ? $year1 : 2024; ?>',
                                     font: { size: 20 },
                                 },
                                 legend: { position: 'top' },

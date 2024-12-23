@@ -1,5 +1,4 @@
 <?php
-// includes.php
 include_once './model/da/database.php';
 include_once './model/da/helper.php';
 include_once './model/bl/freelancer.php';

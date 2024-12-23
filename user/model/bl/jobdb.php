@@ -31,22 +31,30 @@
             return $Jobs;
         }
         
-        function countRow(){
-            $sql = "SELECT COUNT(*) as total FROM cong_viec";
-            
-            $result = self::db_get_row($sql);
-            if ($result){
-                $total = $result['total'];
+        public function countRow($trangThai = '') {
+            $sql = "SELECT COUNT(*) as total FROM cong_viec WHERE trang_thai LIKE :trangThai";
+            $params = [
+                ':trangThai' => '%' . $trangThai . '%'
+            ];
+        
+            $result = self::db_get_row($sql, $params); 
+            if ($result) {
+                return (int)$result['total'];
             }
-            return $total;
+            return 0; 
         }
+        
 
-        public function GET_CVLimit($limit,$offset){
-            $limit=(int)$limit;
-            $offset=(int)$offset;
-            $sql = "SELECT * FROM cong_viec LIMIT $limit, $offset";
+        public function GET_CVLimit($limit, $offset, $trangThai = '') {
+            $limit = (int)$limit;
+            $offset = (int)$offset;
+            $sql = "SELECT * FROM cong_viec WHERE trang_thai LIKE :trangThai order by ma_cong_viec desc LIMIT $limit, $offset ";
+        
             $Jobs = [];
-            $result = self::db_get_list($sql);
+            $params = [
+                ':trangThai' => '%' . $trangThai . '%',
+            ];
+            $result = self::db_get_list_condition($sql, $params); 
             if ($result) { 
                 foreach ($result as $row) {
                     $Job = new Job();
@@ -67,6 +75,7 @@
             }
             return $Jobs;
         }
+        
 
         
         function displayAll(){
@@ -150,9 +159,10 @@
                 return false;
             }
         }
-        function countByMonth($month){
+        function countByMonth($month, $year){
             $month = (int)$month;
-            $sql = "SELECT count(*) as total FROM cong_viec WHERE month(ngay_tao) = $month";
+            $year = (int)$year;
+            $sql = "SELECT count(*) as total FROM cong_viec WHERE month(ngay_tao) = $month AND year(ngay_tao) = $year";
             $result = self::db_get_row($sql);
             $total = 0;
             if ($result){
