@@ -40,21 +40,21 @@ ob_start();
                         <div class="hearChiTietDuAn">
                             <span>Chi tiết dự án</span>
                             <?php
-                            if ($job->getTrangThai()=='Đã đóng'){
+                            if ($user->getUserId() == $user1->getUserId()){
+                            ?>
+                            <span class="btn btn-success" onclick="openForm1()">Cập nhật thông tin dự án</span>
+                            <?php   
+                            } else if ($job->getTrangThai()=='Đã đóng'){
                             ?>
                             <span class="btn btn-danger">Công việc tạm thời không tuyển người</span>
-                            <?php   
-                            } else if ($user1==null){
-                            ?>
-                            <a href="?lay=login" class="btn text-dark" style="background-color:yellow;">Chào giá cho dự án</a>
                             <?php
                             } else if ($user1->getRole()=='nguoi_tim_viec'){
                             ?>
                             <span class="btn text-dark" style="background-color:yellow;" onclick="openForm()">Chào giá cho dự án</span>
                             <?php
-                            } else if ($user->getUserId() == $user1->getUserId()){
+                            } else if ($user1==null){
                             ?>
-                            <span class="btn btn-success" onclick="openForm1()">Cập nhật thông tin dự án</span>
+                            <a href="?lay=login" class="btn text-dark" style="background-color:yellow;">Chào giá cho dự án</a>
                             <?php
                             }
                             ?>
@@ -115,14 +115,15 @@ ob_start();
             <?php
                 $list = $applidb->display_by_idJob($job->getMaCongViec());
                 foreach ($list as $appli) {
-                    $free = $freedb->getById($appli->getFreeID());
-                
+                    $free = $freedb->getById($appli->getFreeID());   
             ?>
             <div class="container mt-1" id="danh_sach_chao_gia">
                 <div class="row" id="header_gui_chao_gia">
                     <div class="col-9">
-                        <img src="/DACS2/user/public/img/<?php echo $free->getImg() ?>" width="5%" style="border-radius:50%; object-fit: cover;" alt="">
-                        <span id="ten">&#160<?php echo $free->getName() ?></span>
+                        <a href="<?php echo Helper::get_url('user/?lay=profile&id=') . $free->getFreeId() ?>" style="text-decoration: none; color: white;">
+                            <img src="/DACS2/user/public/img/<?php echo $free->getImg() ?>" width="5%" style="border-radius:50%; object-fit: cover;" alt="">
+                            <span id="ten">&#160<?php echo $free->getName() ?></span>
+                        </a>
                     </div>
                     <div class="col-3">
                         <span class="box_gia_va_thoi_gian">

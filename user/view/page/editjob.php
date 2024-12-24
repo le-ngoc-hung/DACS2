@@ -54,7 +54,7 @@ $job = $jobdb->display_by_id(Helper::input_value('id'));
                 </div>
                 <div class="mb-3">
                     <label for="skills" class="form-label">Kỹ năng bắt buộc</label>
-                    <input type="text" id="skills" name="skillsUpdate" class="form-control" value="<?php echo $job->getKyNangBatBuoc() ?>" placeholder="" required>
+                    <input type="text" id="skills" name="skillsUpdate" class="form-control" value="<?php echo $job->getKyNangBatBuoc() ?>" placeholder="">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Lưu</button>

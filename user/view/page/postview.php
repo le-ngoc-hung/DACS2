@@ -119,7 +119,7 @@ switch ($order) {
                                                     <div class="col-12">Giá bắt đầu từ</div>
                                                 </div>
                                                 <div class="row mb-3">
-                                                    <div class="col-12"><h5><?php echo $post->getPrice() ?></h5></div>
+                                                    <div class="col-12"><h5><?php echo number_format($post->getPrice(), 0, ',', '.') ?> VND</h5></div>
                                                 </div>
                                             </div> 
                                         </p>

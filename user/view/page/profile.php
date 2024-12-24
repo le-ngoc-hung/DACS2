@@ -152,7 +152,7 @@ ob_start();
                           <div class="price d-flex flex-column">
                             <div class="text-center pricee">
                               <span>Giá bắt đầu từ</span>
-                              <b><?php echo $post->getPrice() ?></b>
+                              <b><?php echo number_format($post->getPrice(), 0, ',', '.') ?> VND</b>
                             </div>
                             <div class="time text-success d-flex align-items-end mt-auto justify-content-center">
                               <a href="<?php echo "?lay=postdetail&id=" . $post->getPostId() ?>" class="btn btn-success text-white text-center w-100">Chi tiết</a>

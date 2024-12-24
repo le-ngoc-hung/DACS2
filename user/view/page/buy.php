@@ -1,5 +1,6 @@
 <?php
 ob_start(); 
+$company = $companydb->getByUserId($myId);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +59,7 @@ if (Helper::is_submit('buy')){
     $desc = Helper::input_value('desc');
     $price = Helper::input_value('price');
     $choice->setPostId(Helper::input_value('id'));
-    $choice->setCompanyId(2);
+    $choice->setCompanyId($company->getComId());
     $choice->setDesc($desc);
     $choice->setPrice($price);
 
