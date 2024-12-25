@@ -1,6 +1,7 @@
 <?php
 $id = Helper::input_value('id');
 $company = $companydb->getById($id);
+$company1 = new Company();
 if ($myId!==null){
     $company1 = $companydb->getByUserId($myId);
 }

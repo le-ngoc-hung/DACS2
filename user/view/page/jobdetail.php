@@ -40,6 +40,7 @@ ob_start();
                         <div class="hearChiTietDuAn">
                             <span>Chi tiết dự án</span>
                             <?php
+                            if ($user1 !== null){
                             if ($user->getUserId() == $user1->getUserId()){
                             ?>
                             <span class="btn btn-success" onclick="openForm1()">Cập nhật thông tin dự án</span>
@@ -52,7 +53,7 @@ ob_start();
                             ?>
                             <span class="btn text-dark" style="background-color:yellow;" onclick="openForm()">Chào giá cho dự án</span>
                             <?php
-                            } else if ($user1==null){
+                            }} else{
                             ?>
                             <a href="?lay=login" class="btn text-dark" style="background-color:yellow;">Chào giá cho dự án</a>
                             <?php
